@@ -1,6 +1,6 @@
-'use client'
-import React from 'react'
-import { useTripStore } from '@/store/tripStore';
+"use client"
+import React from "react"
+import { useTripStore } from "@/store/tripStore"
 
 export default function Home() {
   const { currentTrip, totalTrips, fetchTrips, loading } = useTripStore()
@@ -12,14 +12,80 @@ export default function Home() {
   if (loading) {
     return (
       <div>
-        <p style={{ fontWeight: 'semibold' }}>Loading...</p>
+        <p style={{ fontWeight: "semibold" }}>Loading...</p>
       </div>
     )
   }
 
   return (
-      <main>
-        <p style={{ fontWeight: 'bold', color: 'green' }}>Things loaded</p>
-      </main>
-  );
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          boxSizing: "border-box",
+          padding: "20px 20px",
+          minWidth: "320px",
+          minHeight: "400px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: '24px', 
+          border: "1px solid lightgray",
+          borderRadius: "4px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "12px",
+            fontFamily: "sans-serif",
+          }}
+        >
+          <p
+            style={{
+              margin: "0px",
+              fontSize: "48px",
+              fontWeight: "bold",
+              color: "green",
+              fontFamily: "sans-serif",
+            }}
+          >
+            {currentTrip}
+          </p>
+          <p style={{ margin: "0px", fontSize: "24px" }}>Current trip</p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "12px",
+            fontFamily: "sans-serif",
+          }}
+        >
+          <p
+            style={{
+              margin: "0px",
+              fontSize: "48px",
+              fontWeight: "bold",
+              color: "green",
+              fontFamily: "sans-serif",
+            }}
+          >
+            {totalTrips}
+          </p>
+          <p style={{ margin: "0px", fontSize: "24px" }}>Total trips</p>
+        </div>
+      </div>
+    </main>
+  )
 }

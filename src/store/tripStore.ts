@@ -1,21 +1,29 @@
-import { create } from 'zustand'
+import { create } from "zustand"
 
-export const useTripStore = create((set) => ({
-    currentTrip: 0,
-    totalTrips: 0,
-    loading: true,
-    updating: false,
+interface TripState {
+  currentTrip: number
+  totalTrips: number
+  loading: boolean
+  updating: boolean
+  fetchTrips: () => Promise<void>
+}
 
-    fetchTrips: async () => {
-        try {
-          const response = await fetch('/api/trips')
-          const data = await response.json()
+export const useTripStore = create<TripState>((set) => ({
+  currentTrip: 0,
+  totalTrips: 0,
+  loading: true,
+  updating: false,
 
-          set({ currentTrip: data.currentTrip, totalTrips: data.totalTrips })
-        } catch(error) {
-          console.error('Error fetching trips:', error)
-        } finally {
-          set({ loading: false })
-        }
+  fetchTrips: async () => {
+    try {
+      const response = await fetch("/api/trips")
+      const data = await response.json()
+
+      set({ currentTrip: data.currentTrip, totalTrips: data.totalTrips })
+    } catch (error) {
+      console.error("Error fetching trips:", error)
+    } finally {
+      set({ loading: false })
     }
+  },
 }))

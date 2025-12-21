@@ -1,12 +1,5 @@
 import { create } from "zustand"
-
-type Seed = "Corn" | null
-
-type Field = {
-  id: string
-  fieldNumber: string
-  seedType: Seed
-}
+import { Field } from "@/app/api/fields/allFields/route"
 
 type FieldsState = {
   allFields: Field[]

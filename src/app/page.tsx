@@ -2,18 +2,17 @@
 import React from "react"
 import { useTripStore } from "@/store/tripStore"
 import { useFieldsStore } from "@/store/fieldsStore"
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button"
 
 export default function Home() {
-  const { currentTrip, totalTrips, fetchTrips, loading, incrementTrip } =
-    useTripStore()
+  const { allTrips, fetchAllTrips, loading } = useTripStore()
 
   const { allFields, fetchAllFields } = useFieldsStore()
 
   React.useEffect(() => {
     fetchAllFields()
-    fetchTrips()
-  }, [fetchAllFields, fetchTrips])
+    fetchAllTrips()
+  }, [fetchAllFields, fetchAllTrips])
 
   if (loading) {
     return (
@@ -24,7 +23,7 @@ export default function Home() {
   }
 
   const handleClick = () => {
-    incrementTrip()
+    // incrementTrip()
   }
 
   return (
@@ -37,8 +36,10 @@ export default function Home() {
       }}
     >
       <div style={{ display: "flex", flexDirection: "column" }}>
-        {allFields.length}
-        <Button variant="contained" onClick={handleClick}>Inc</Button>
+        {/* {allTrips.length} */}
+        <Button variant="contained" onClick={handleClick}>
+          Inc
+        </Button>
       </div>
       <div
         style={{
@@ -72,9 +73,9 @@ export default function Home() {
               fontFamily: "sans-serif",
             }}
           >
-            {currentTrip}
+            {allFields.length.toString()}
           </p>
-          <p style={{ margin: "0px", fontSize: "24px" }}>Current trip</p>
+          <p style={{ margin: "0px", fontSize: "24px" }}>Fields</p>
         </div>
 
         <div
@@ -95,9 +96,9 @@ export default function Home() {
               fontFamily: "sans-serif",
             }}
           >
-            {totalTrips}
+            {allTrips.length}
           </p>
-          <p style={{ margin: "0px", fontSize: "24px" }}>Total trips</p>
+          <p style={{ margin: "0px", fontSize: "24px" }}>Trips</p>
         </div>
       </div>
     </main>

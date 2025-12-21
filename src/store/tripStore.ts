@@ -1,3 +1,4 @@
+// 'use client'
 import { create } from "zustand"
 
 interface TripState {
@@ -16,7 +17,7 @@ export const useTripStore = create<TripState>((set) => ({
 
   fetchTrips: async () => {
     try {
-      const response = await fetch("/api/trips")
+      const response = await fetch("/api/allTrips")
       const data = await response.json()
 
       set({ currentTrip: data.currentTrip, totalTrips: data.totalTrips })

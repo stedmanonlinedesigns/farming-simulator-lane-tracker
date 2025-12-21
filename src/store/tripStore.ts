@@ -1,4 +1,3 @@
-// 'use client'
 import { create } from "zustand"
 
 interface TripState {
@@ -7,7 +6,7 @@ interface TripState {
   loading: boolean
   updating: boolean
   fetchTrips: () => Promise<void>
-  incrementTrip: ()=> Promise<void>
+  incrementTrip: () => Promise<void>
 }
 
 export const useTripStore = create<TripState>((set) => ({
@@ -28,17 +27,17 @@ export const useTripStore = create<TripState>((set) => ({
       set({ loading: false })
     }
   },
-  incrementTrip: async () =>{
+  incrementTrip: async () => {
     set({ updating: true })
     try {
-      const response = await fetch('/api/trips', { method: 'POST' })
+      const response = await fetch("/api/trips", { method: "POST" })
       const data = await response.json()
 
       set({ currentTrip: data.currentTrip, totalTrips: data.totalTrips })
     } catch (error) {
-      console.error('Error updating trip:', error)
+      console.error("Error updating trip:", error)
     } finally {
       set({ updating: false })
     }
-  }
+  },
 }))

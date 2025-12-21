@@ -1,14 +1,18 @@
 "use client"
 import React from "react"
 import { useTripStore } from "@/store/tripStore"
+import { useFieldsStore } from "@/store/fieldsStore"
 
 export default function Home() {
   const { currentTrip, totalTrips, fetchTrips, loading, incrementTrip } =
     useTripStore()
 
+  const { allFields, fetchAllFields } = useFieldsStore()
+
   React.useEffect(() => {
+    fetchAllFields()
     fetchTrips()
-  }, [fetchTrips])
+  }, [fetchAllFields, fetchTrips])
 
   if (loading) {
     return (
@@ -31,6 +35,10 @@ export default function Home() {
         alignItems: "center",
       }}
     >
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {allFields.length}
+        <button onClick={handleClick}>Inc</button>
+      </div>
       <div
         style={{
           boxSizing: "border-box",
@@ -91,7 +99,6 @@ export default function Home() {
           <p style={{ margin: "0px", fontSize: "24px" }}>Total trips</p>
         </div>
       </div>
-      <button onClick={handleClick}>Inc</button>
     </main>
   )
 }

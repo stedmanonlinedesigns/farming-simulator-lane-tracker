@@ -1,5 +1,6 @@
 "use client"
 import React from "react"
+import Link from "next/link"
 import { useTripStore } from "@/store/tripStore"
 import { useFieldsStore } from "@/store/fieldsStore"
 import Button from "@mui/material/Button"
@@ -9,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
+import { Typography } from "@mui/material"
 
 export default function Home() {
   const { allTrips, fetchAllTrips, loading } = useTripStore()
@@ -42,8 +44,9 @@ export default function Home() {
   }
 
   return (
-    <main
-      style={{
+    <Box
+      role='main'
+      sx={{
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -51,8 +54,13 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      {allFields && `${allFields.length.toString()} fields`}
-      <div
+      <Typography variant="h1" fontWeight={'bold'}>Welcome</Typography>
+      <Typography>Link to <Link href={'/fields'}>Fields</Link> page</Typography>
+      <Typography>Link to <Link href={'/trips'}>Trips</Link> page</Typography>
+
+      {/* {allFields && `${allFields.length.toString()} fields`} */}
+
+      {/* <div
         style={{
           paddingBottom: "20px",
           minWidth: "320px",
@@ -65,8 +73,9 @@ export default function Home() {
         <Button variant="contained" onClick={handleAddField}>
           Add field
         </Button>
-      </div>
-      <Box sx={{ width: 320, paddingBottom: "20px" }}>
+      </div> */}
+
+      {/* <Box sx={{ width: 320, paddingBottom: "20px" }}>
         <FormControl
           fullWidth
           size="small"
@@ -103,8 +112,9 @@ export default function Home() {
             </Box>
           )}
         </FormControl>
-      </Box>
-      <div
+      </Box> */}
+
+      {/* <div
         style={{
           boxSizing: "border-box",
           padding: "20px 20px",
@@ -144,29 +154,7 @@ export default function Home() {
             <p>Current</p>
           </div>
         )}
-        {/* {currentField && (
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <p
-              style={{
-                margin: "0px",
-                fontSize: "48px",
-                fontWeight: "bold",
-                color: "green",
-                fontFamily: "sans-serif",
-              }}
-            >
-              {currentField.field_number}
-            </p>
-            <p>
-              {!currentField.crop_details.seed
-                ? "fallow"
-                : currentField.crop_details.seed}
-            </p>
-            <p>Current</p>
-          </div>
-        )} */}
-
-        {/* <div
+        <div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -187,8 +175,8 @@ export default function Home() {
             {allFields.length.toString()}
           </p>
           <p style={{ margin: "0px", fontSize: "24px" }}>Fields</p>
-        </div> */}
-        {/* 
+        </div>
+        
         <div
           style={{
             display: "flex",
@@ -210,8 +198,8 @@ export default function Home() {
             {allTrips.length}
           </p>
           <p style={{ margin: "0px", fontSize: "24px" }}>Trips</p>
-        </div> */}
-      </div>
-    </main>
+        </div>
+      </div> */}
+    </Box>
   )
 }

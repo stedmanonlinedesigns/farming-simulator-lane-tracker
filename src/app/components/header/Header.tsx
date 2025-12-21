@@ -1,13 +1,9 @@
-// "use client"
-import React from "react"
 import { Box } from "@mui/material"
 import HeaderNavigation from "./HeaderNavigation"
 
-type HeaderProps = {}
-
-const Header = (props: HeaderProps) => {
+const Header = () => {
   return (
-    <Box role="header" sx={{ py:4, background: '#1E6F41' }}>
+    <Box role="header" sx={{ py: 4, background: "#1E6F41" }}>
       <HeaderNavigation />
     </Box>
   )

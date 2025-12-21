@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import Button from "@mui/material/Button"
 
 type HeaderNavigationLinkProps = {
@@ -13,10 +13,13 @@ const HeaderNavigationLink = ({
   children,
 }: HeaderNavigationLinkProps) => {
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleNavigateButtonClick = (pathTo: string) => {
     router.push(pathTo)
   }
+
+  console.log(pathname)
 
   return (
     <Button
@@ -24,11 +27,17 @@ const HeaderNavigationLink = ({
       onClick={() => handleNavigateButtonClick(path)}
       size="small"
       sx={{
+        fontSize: "18px",
         fontWeight: "bold",
         color: "#F9DD30",
+        textTransform: "capitalize",
+
+        textDecoration: pathname === path ? "underline" : "none",
+        textUnderlineOffset: "4px",
+        textDecorationThickness: "2px",
+
         "&:hover": {
           textDecoration: "underline",
-          textUnderlineOffset: "4px",
           textDecorationThickness: "3px",
         },
       }}

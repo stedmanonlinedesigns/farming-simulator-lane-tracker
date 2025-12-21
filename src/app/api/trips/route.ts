@@ -22,3 +22,33 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch trips' }, { status: 500 });
   }
 }
+
+export async function POST() {
+  try {
+    const db = await getDatabase()
+    const trips = db.collection('trips')
+
+    const result = await trips.findOneAndUpdate(
+      { id: 'main' },
+      {
+        $inc: { currentTrip: 1, totalTrips: 1 }
+      },
+      {
+        upsert: true,
+        returnDocument: 'after'
+      }
+    )
+
+    if (!result) {
+      return null
+    }
+
+    return NextResponse.json({
+      currentTrip: result.currentTrip,
+      totalTrips: result.totalTrips
+    })
+  } catch (error) {
+    console.error('Failed to update trip:', error)
+    return NextResponse.json({ error: 'Failed to update trip.' }, { status: 500 })
+  }
+}

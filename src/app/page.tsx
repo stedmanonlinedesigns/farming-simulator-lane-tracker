@@ -3,7 +3,8 @@ import React from "react"
 import { useTripStore } from "@/store/tripStore"
 
 export default function Home() {
-  const { currentTrip, totalTrips, fetchTrips, loading } = useTripStore()
+  const { currentTrip, totalTrips, fetchTrips, loading, incrementTrip } =
+    useTripStore()
 
   React.useEffect(() => {
     fetchTrips()
@@ -15,6 +16,10 @@ export default function Home() {
         <p style={{ fontWeight: "semibold" }}>Loading...</p>
       </div>
     )
+  }
+
+  const handleClick = () => {
+    incrementTrip()
   }
 
   return (
@@ -35,7 +40,7 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          gap: '24px', 
+          gap: "24px",
           border: "1px solid lightgray",
           borderRadius: "4px",
         }}
@@ -86,6 +91,7 @@ export default function Home() {
           <p style={{ margin: "0px", fontSize: "24px" }}>Total trips</p>
         </div>
       </div>
+      <button onClick={handleClick}>Inc</button>
     </main>
   )
 }

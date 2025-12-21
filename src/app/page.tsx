@@ -2,6 +2,7 @@
 import React from "react"
 import { useTripStore } from "@/store/tripStore"
 import { useFieldsStore } from "@/store/fieldsStore"
+import Button from '@mui/material/Button';
 
 export default function Home() {
   const { currentTrip, totalTrips, fetchTrips, loading, incrementTrip } =
@@ -37,7 +38,7 @@ export default function Home() {
     >
       <div style={{ display: "flex", flexDirection: "column" }}>
         {allFields.length}
-        <button onClick={handleClick}>Inc</button>
+        <Button variant="contained" onClick={handleClick}>Inc</Button>
       </div>
       <div
         style={{

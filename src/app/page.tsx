@@ -1,6 +1,5 @@
 "use client"
 import React from "react"
-import Link from "next/link"
 import { useTripStore } from "@/store/tripStore"
 import { useFieldsStore } from "@/store/fieldsStore"
 import Button from "@mui/material/Button"
@@ -45,7 +44,7 @@ export default function Home() {
 
   return (
     <Box
-      role='main'
+      role="main"
       sx={{
         height: "100vh",
         display: "flex",
@@ -54,9 +53,9 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Typography variant="h1" fontWeight={'bold'}>Welcome</Typography>
-      <Typography>Link to <Link href={'/fields'}>Fields</Link> page</Typography>
-      <Typography>Link to <Link href={'/trips'}>Trips</Link> page</Typography>
+      <Typography variant="h1" fontWeight={"bold"}>
+        Welcome
+      </Typography>
 
       {/* {allFields && `${allFields.length.toString()} fields`} */}
 

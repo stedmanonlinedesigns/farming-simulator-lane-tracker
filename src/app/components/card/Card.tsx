@@ -21,7 +21,9 @@ const AppCard = ({ children }: AppCardProps) => {
         subheader="Planted | Oats"
         avatar={
           <Avatar aria-label="field-number" sx={{ bgcolor: "dodgerblue" }}>
-            <Typography variant="body1" fontWeight='bold'>133</Typography>
+            <Typography variant="body1" fontWeight="bold">
+              133
+            </Typography>
           </Avatar>
         }
         action={

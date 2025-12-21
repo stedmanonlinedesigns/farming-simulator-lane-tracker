@@ -7,7 +7,7 @@ import Button from "@mui/material/Button"
 export default function Home() {
   const { allTrips, fetchAllTrips, loading } = useTripStore()
 
-  const { allFields, fetchAllFields } = useFieldsStore()
+  const { allFields, fetchAllFields, addField } = useFieldsStore()
 
   React.useEffect(() => {
     fetchAllFields()
@@ -24,6 +24,8 @@ export default function Home() {
 
   const handleClick = () => {
     // incrementTrip()
+    console.log('Button clicked.')
+    addField()
   }
 
   return (
@@ -38,7 +40,7 @@ export default function Home() {
       <div style={{ display: "flex", flexDirection: "column" }}>
         {/* {allTrips.length} */}
         <Button variant="contained" onClick={handleClick}>
-          Inc
+          Add field
         </Button>
       </div>
       <div

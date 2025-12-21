@@ -3,6 +3,8 @@ import dayjs from "dayjs"
 import { v4 as uuid } from "uuid"
 import { getDatabase } from "@/lib/mongodb"
 
+// TODO: Add update field and delete field
+
 type CropSeed = "corn" | "soybeans" | null
 type CropStatus = "fallow" | "planting" | "planted" | null
 
@@ -76,6 +78,9 @@ export async function POST() {
 
     await fieldsCollection.insertOne(newField)
 
+    const fieldsData = await fieldsCollection.find({}).toArray()
+    console.log(fieldsData)
+
     const performanceDuration = Math.round(performance.now() - peformanceStart)
 
     console.info({
@@ -84,10 +89,7 @@ export async function POST() {
       performance: `${performanceDuration.toString()}ms`,
     })
 
-    return NextResponse.json(
-      { success: `Field ${newField.field_number} was added to the database.` },
-      { status: 200 }
-    )
+    return NextResponse.json({ fieldsData })
   } catch (error) {
     console.error("Failed to add field. ", error)
 

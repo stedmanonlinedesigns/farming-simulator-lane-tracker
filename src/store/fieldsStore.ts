@@ -5,14 +5,21 @@ import { Field } from "@/app/api/fields/allFields/route"
 
 type FieldsState = {
   allFields: Field[]
+  currentField: Field | null
   loading: boolean
   updating: boolean
   fetchAllFields: () => Promise<void>
-  addField: () => Promise<void>
+  addField: (
+    fieldNumber: number,
+    status: string | null,
+    seed: string | null
+  ) => Promise<void>
+  setCurrentField: (currentField: Field) => void
 }
 
 export const useFieldsStore = create<FieldsState>((set) => ({
   allFields: [],
+  currentField: null,
   loading: true,
   updating: false,
   fetchAllFields: async () => {
@@ -27,10 +34,22 @@ export const useFieldsStore = create<FieldsState>((set) => ({
       set({ loading: false })
     }
   },
-  addField: async () => {
+  addField: async (fieldNumber, status, seed) => {
+    if (typeof fieldNumber === "string") {
+      throw new Error("addField() requires a number.")
+    }
+
     try {
       set({ updating: true })
-      const response = await fetch("/api/fields/allFields", { method: "POST" })
+      const response = await fetch("/api/fields/allFields", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          field_number: fieldNumber,
+          field_status: status,
+          field_seed: seed,
+        }),
+      })
       const data = await response.json()
 
       set({ allFields: data.fieldsData })
@@ -39,5 +58,8 @@ export const useFieldsStore = create<FieldsState>((set) => ({
     } finally {
       set({ updating: false })
     }
+  },
+  setCurrentField: (currentField) => {
+    set({ currentField: currentField })
   },
 }))

@@ -5,12 +5,12 @@ import { getDatabase } from "@/lib/mongodb"
 
 // TODO: Add update field and delete field
 
-type CropSeed = "corn" | "soybeans" | null
+type CropSeed = "corn" | "soybeans" | "sunflowers" | "oats" | "cotton" | null
 type CropStatus = "fallow" | "planting" | "planted" | null
 
 export type Field = {
   field_id: string
-  field_number: string
+  field_number: number
   crop_details: {
     status: CropStatus
     seed: CropSeed
@@ -30,7 +30,7 @@ export async function GET() {
     if (fieldsData.length === 0) {
       const newField: Field = {
         field_id: uuid(),
-        field_number: "11",
+        field_number: 11,
         crop_details: {
           status: "planting",
           seed: "corn",
@@ -59,7 +59,7 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
     const peformanceStart = performance.now()
     const db = await getDatabase()
@@ -67,19 +67,23 @@ export async function POST() {
       `${process.env.MONGODB_DATABASE_COLLECTION_TWO}`
     )
 
+    const body = await request.json()
+    const newBody = await body
+    const { field_number, field_status, field_seed } = newBody
+    console.log(888, body)
+
     const newField: Field = {
       field_id: uuid(),
-      field_number: "23",
+      field_number: field_number,
       crop_details: {
-        status: "planting",
-        seed: "corn",
+        status: field_status,
+        seed: field_seed,
       },
     }
 
     await fieldsCollection.insertOne(newField)
 
     const fieldsData = await fieldsCollection.find({}).toArray()
-    console.log(fieldsData)
 
     const performanceDuration = Math.round(performance.now() - peformanceStart)
 

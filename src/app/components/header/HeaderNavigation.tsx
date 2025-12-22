@@ -6,7 +6,6 @@ const HeaderNavigation = () => {
   return (
     <Box
       sx={{
-        px: "20px",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",

@@ -19,8 +19,6 @@ const HeaderNavigationLink = ({
     router.push(pathTo)
   }
 
-  console.log(pathname)
-
   return (
     <Button
       variant="text"

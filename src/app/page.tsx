@@ -10,21 +10,28 @@ import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import TextField from "@mui/material/TextField"
 import { Typography } from "@mui/material"
+import { Main, Section } from "./components"
 
 export default function Home() {
   const { allTrips, fetchAllTrips, loading } = useTripStore()
   const { allFields, fetchAllFields, addField, currentField, setCurrentField } =
     useFieldsStore()
 
+  // console.log(444, allTrips)
+
+  // React.useEffect(() => {
+  //   fetchAllFields()
+  //   fetchAllTrips()
+  // }, [fetchAllFields, fetchAllTrips])
+
   React.useEffect(() => {
-    fetchAllFields()
     fetchAllTrips()
-  }, [fetchAllFields, fetchAllTrips])
+  }, [fetchAllTrips])
 
   if (loading) {
     return (
       <div>
-        <p style={{ fontWeight: "semibold" }}>Loading...</p>
+        <p style={{ fontWeight: "semibold", color: "white" }}>Loading...</p>
       </div>
     )
   }
@@ -43,19 +50,19 @@ export default function Home() {
   }
 
   return (
-    <Box
-      role="main"
-      sx={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Typography variant="h1" fontWeight={"bold"}>
-        Welcome
-      </Typography>
+    <Main>
+      <Section>
+        <Box sx={{ width: "100%" }}>
+          <Typography
+            variant="h1"
+            fontSize={{ xs: "56px", sm: "76px", md: "84px", lg: "96px" }}
+            fontWeight={"bold"}
+            sx={{ width: "100%", color: "#F9DD30" }}
+          >
+            Welcome
+          </Typography>
+        </Box>
+      </Section>
 
       {/* {allFields && `${allFields.length.toString()} fields`} */}
 
@@ -199,6 +206,6 @@ export default function Home() {
           <p style={{ margin: "0px", fontSize: "24px" }}>Trips</p>
         </div>
       </div> */}
-    </Box>
+    </Main>
   )
 }

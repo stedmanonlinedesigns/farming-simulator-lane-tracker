@@ -1,5 +1,6 @@
 // "use client"
 // import React from "react"
+import Link from "next/link"
 import { Avatar, Typography, Box } from "@mui/material"
 import IconButton, { IconButtonProps } from "@mui/material/IconButton"
 // import { styled } from "@mui/material/styles"
@@ -8,6 +9,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 // import FavoriteIcon from "@mui/icons-material/Favorite"
 // import ShareIcon from "@mui/icons-material/Share"
 // import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { Field } from "@/app/api/fields/allFields/route"
 
 // interface ExpandMoreProps extends IconButtonProps {
 //   expand: boolean
@@ -38,66 +40,68 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 // }))
 
 type FieldsDisplayCard = {
-  field: any
+  field: Field
 }
 
-const FieldsDisplayCard = ({ field }: FieldsDisplayCard) => {
+const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
   // const [expanded, setExpanded] = React.useState(false)
+  // console.log(333, field)
 
   // const handleExpandClick = () => {
   //   setExpanded(!expanded)
   // }
 
   return (
-    <Card>
-      <Box
-        py={{ xs: 2 }}
-        px={{ xs: 2 }}
-        display={{ xs: "flex" }}
-        gap={{ xs: 2 }}
-      >
-        <Box>
-          <Avatar
-            aria-label="field-number"
+    <Link href={`/fields/${field.field_id}`} passHref>
+      <Card {...otherProps}>
+        <Box
+          py={{ xs: 2 }}
+          px={{ xs: 2 }}
+          display={{ xs: "flex" }}
+          gap={{ xs: 2 }}
+        >
+          <Box>
+            <Avatar
+              aria-label="field-number"
+              sx={{
+                bgcolor:
+                  field.crop_details.status === "planting"
+                    ? "purple"
+                    : field.crop_details.status === "planted"
+                    ? "red"
+                    : "lightgray",
+              }}
+            >
+              <Typography variant="body1" fontWeight="bold">
+                {field.field_number}
+              </Typography>
+            </Avatar>
+          </Box>
+          <Box
+            width={"100%"}
             sx={{
-              bgcolor:
-                field.crop_details.status === "planting"
-                  ? "purple"
-                  : field.crop_details.status === "planted"
-                  ? "red"
-                  : "lightgray",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Typography variant="body1" fontWeight="bold">
-              {field.field_number}
-            </Typography>
-          </Avatar>
+            <Typography
+              variant="h5"
+              fontSize={{ xs: "20px" }}
+              fontWeight={"bold"}
+              sx={{ color: "#ffffff" }}
+            >{`Field ${field.field_number}`}</Typography>
+            <Typography
+              fontSize={{ xs: "18px" }}
+              sx={{ color: "white", textTransform: "capitalize" }}
+            >{`${field.crop_details.status} | ${field.crop_details.seed}`}</Typography>
+          </Box>
+          <Box>
+            <IconButton aria-label="field-actions">
+              <MoreVertIcon sx={{ color: "white" }} />
+            </IconButton>
+          </Box>
         </Box>
-        <Box
-          width={"100%"}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography
-            variant="h5"
-            fontSize={{ xs: "20px" }}
-            fontWeight={"bold"}
-            sx={{ color: "#ffffff" }}
-          >{`Field ${field.field_number}`}</Typography>
-          <Typography
-            fontSize={{ xs: "18px" }}
-            sx={{ color: "white", textTransform: "capitalize" }}
-          >{`${field.crop_details.status} | ${field.crop_details.seed}`}</Typography>
-        </Box>
-        <Box>
-          <IconButton aria-label="field-actions">
-            <MoreVertIcon sx={{ color: "white" }} />
-          </IconButton>
-        </Box>
-      </Box>
-      {/* <Card.Actions disableSpacing>
+        {/* <Card.Actions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon sx={{ color: "white" }} />
         </IconButton>
@@ -113,7 +117,8 @@ const FieldsDisplayCard = ({ field }: FieldsDisplayCard) => {
           <ExpandMoreIcon sx={{ color: "white" }} />
         </ExpandMore>
       </Card.Actions> */}
-    </Card>
+      </Card>
+    </Link>
   )
 }
 

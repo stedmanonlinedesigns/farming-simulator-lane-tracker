@@ -1,55 +1,55 @@
-// "use client"
-// import React from "react"
+"use client"
+import React from "react"
 import Link from "next/link"
 import { Avatar, Typography, Box } from "@mui/material"
 import IconButton, { IconButtonProps } from "@mui/material/IconButton"
-// import { styled } from "@mui/material/styles"
+import { styled } from "@mui/material/styles"
 import { Card } from "@/app/components"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
-// import FavoriteIcon from "@mui/icons-material/Favorite"
-// import ShareIcon from "@mui/icons-material/Share"
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import ShareIcon from "@mui/icons-material/Share"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Field } from "@/app/api/fields/allFields/route"
 
-// interface ExpandMoreProps extends IconButtonProps {
-//   expand: boolean
-// }
+interface ExpandMoreProps extends IconButtonProps {
+  expand: boolean
+}
 
-// const ExpandMore = styled((props: ExpandMoreProps) => {
-//   const { expand, ...other } = props
-//   return <IconButton {...other} />
-// })(({ theme }) => ({
-//   marginLeft: "auto",
-//   transition: theme.transitions.create("transform", {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-//   variants: [
-//     {
-//       props: ({ expand }) => !expand,
-//       style: {
-//         transform: "rotate(0deg)",
-//       },
-//     },
-//     {
-//       props: ({ expand }) => !!expand,
-//       style: {
-//         transform: "rotate(180deg)",
-//       },
-//     },
-//   ],
-// }))
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand, ...other } = props
+  return <IconButton {...other} />
+})(({ theme }) => ({
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+  variants: [
+    {
+      props: ({ expand }) => !expand,
+      style: {
+        transform: "rotate(0deg)",
+      },
+    },
+    {
+      props: ({ expand }) => !!expand,
+      style: {
+        transform: "rotate(180deg)",
+      },
+    },
+  ],
+}))
 
 type FieldsDisplayCard = {
   field: Field
 }
 
 const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
-  // const [expanded, setExpanded] = React.useState(false)
+  const [expanded, setExpanded] = React.useState(false)
   // console.log(333, field)
 
-  // const handleExpandClick = () => {
-  //   setExpanded(!expanded)
-  // }
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+  }
 
   return (
     <Link href={`/fields/${field.field_id}`} passHref>
@@ -102,21 +102,21 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
           </Box>
         </Box>
         {/* <Card.Actions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon sx={{ color: "white" }} />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon sx={{ color: "white" }} />
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon sx={{ color: "white" }} />
-        </ExpandMore>
-      </Card.Actions> */}
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon sx={{ color: "white" }} />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon sx={{ color: "white" }} />
+          </IconButton>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon sx={{ color: "white" }} />
+          </ExpandMore>
+        </Card.Actions> */}
       </Card>
     </Link>
   )

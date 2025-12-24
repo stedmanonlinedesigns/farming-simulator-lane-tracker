@@ -5,8 +5,21 @@ import { getDatabase } from "@/lib/mongodb"
 
 // TODO: Add update field and delete field
 
-type CropSeed = "corn" | "soybeans" | "sunflowers" | "oats" | "cotton" | null
-type CropStatus = "fallow" | "planting" | "planted" | null
+export type CropSeed =
+  | "wheat"
+  | "barley"
+  | "sorghum"
+  | "canola"
+  | "grass"
+  | "sugarcane"
+  | "poplar"
+  | "corn"
+  | "soybeans"
+  | "sunflowers"
+  | "oats"
+  | "cotton"
+  | null
+export type CropStatus = "fallow" | "planting" | "planted" | null
 
 export type Field = {
   field_id: string

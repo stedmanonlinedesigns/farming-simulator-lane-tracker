@@ -4,18 +4,16 @@ import { useRouter } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
 import { Box, InputLabel, TextField, Button } from "@mui/material"
 import { Section } from "@/app/components"
+import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
 
 const AddFieldForm = () => {
   const router = useRouter()
   const { addField } = useFieldsStore()
-  const [newFieldNumber, setNewFieldNumber] = React.useState<string>('')
-  const [sowingStatus, setSowingStatus] = React.useState<string | null>(null)
-  const [seed, setSeed] = React.useState<string | null>(null)
-
-  // console.log(111, typeof parseInt(newFieldNumber))
+  const [newFieldNumber, setNewFieldNumber] = React.useState<string>("")
+  const [sowingStatus, setSowingStatus] = React.useState<CropStatus>(null)
+  const [seed, setSeed] = React.useState<CropSeed>(null)
 
   const handleAddField = () => {
-    // console.log(222, typeof parseInt(newFieldNumber), newFieldNumber)
     addField(parseInt(newFieldNumber), sowingStatus, seed)
     router.push("/fields")
   }
@@ -70,6 +68,7 @@ const AddFieldForm = () => {
               id="textfield-sowing-status"
               variant="outlined"
               fullWidth
+              // @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'SetStateAction<CropStatus>
               onChange={(e) => setSowingStatus(e.target.value)}
             />
           </Box>
@@ -89,6 +88,7 @@ const AddFieldForm = () => {
               id="textfield-seed"
               variant="outlined"
               fullWidth
+              // @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'SetStateAction<CropSeed>'
               onChange={(e) => setSeed(e.target.value)}
             />
           </Box>

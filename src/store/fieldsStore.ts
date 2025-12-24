@@ -1,5 +1,9 @@
 import { create } from "zustand"
-import { Field } from "@/app/api/fields/allFields/route"
+import type {
+  Field,
+  CropStatus,
+  CropSeed,
+} from "@/app/api/fields/allFields/route"
 
 // TODO: Add update field and delete field
 
@@ -11,8 +15,8 @@ type FieldsState = {
   fetchAllFields: () => Promise<void>
   addField: (
     fieldNumber: number,
-    status: string | null,
-    seed: string | null
+    status: CropStatus,
+    seed: CropSeed
   ) => Promise<void>
   setCurrentField: (currentField: Field) => void
 }

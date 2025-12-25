@@ -2,16 +2,44 @@
 import React from "react"
 import { useRouter } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
-import { Box, InputLabel, TextField, Button } from "@mui/material"
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  Button,
+  OutlinedInput,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from "@mui/material"
 import { Section } from "@/app/components"
 import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
+
+const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
+
+const cropSeeds: CropSeed[] = [
+  "barley",
+  "barley",
+  "canola",
+  "corn",
+  "cotton",
+  "fallow",
+  "grass",
+  "oats",
+  "poplar",
+  "soybeans",
+  "sorghum",
+  "sunflowers",
+  "sugarcane",
+  "wheat",
+]
 
 const AddFieldForm = () => {
   const router = useRouter()
   const { addField } = useFieldsStore()
   const [newFieldNumber, setNewFieldNumber] = React.useState<string>("")
-  const [sowingStatus, setSowingStatus] = React.useState<CropStatus>(null)
-  const [seed, setSeed] = React.useState<CropSeed>(null)
+  const [sowingStatus, setSowingStatus] = React.useState<CropStatus>("")
+  const [seed, setSeed] = React.useState<CropSeed>("")
 
   const handleAddField = () => {
     addField(parseInt(newFieldNumber), sowingStatus, seed)
@@ -21,78 +49,90 @@ const AddFieldForm = () => {
   return (
     <Section>
       <Box
+        width={{ xs: "100%" }}
         display={{ xs: "flex" }}
         flexDirection={{ xs: "column" }}
         gap={{ xs: 2 }}
         boxSizing={"border-box"}
+        sx={{ boxSizing: "border-box" }}
       >
+        <FormControl fullWidth>
+          <Box>
+            <InputLabel
+              id="textfield-label-add-field-number"
+              htmlFor="textfield-add-field-number"
+              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
+            >
+              Field number
+            </InputLabel>
+            <OutlinedInput
+              id="textfield-add-field-number"
+              type="number"
+              fullWidth
+              label={"Field number"}
+              onChange={(e) => setNewFieldNumber(e.target.value)}
+            />
+            <FormHelperText>Helper text</FormHelperText>
+          </Box>
+        </FormControl>
+
         <Box
           display={{ xs: "flex" }}
-          flexDirection={{ xs: "column" }}
-          gap={{ xs: 0.5 }}
-        >
-          <InputLabel
-            id="textfield-label-add-field-number"
-            htmlFor="textfield-add-field-number"
-            sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-          >
-            Field number
-          </InputLabel>
-          <TextField
-            id="textfield-add-field-number"
-            type="number"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => setNewFieldNumber(e.target.value)}
-          />
-        </Box>
-        <Box
-          boxSizing={"border-box"}
-          display={{ xs: "flex" }}
+          justifyContent={{ xs: "space-between" }}
           gap={{ xs: 2 }}
-          width={{ xs: "100%" }}
         >
-          <Box
-            display={{ xs: "flex" }}
-            flexDirection={{ xs: "column" }}
-            gap={{ xs: 0.5 }}
-          >
+          <FormControl fullWidth>
             <InputLabel
-              id="textfield-label-sowing-status"
-              htmlFor="textfield-sowing-status"
+              id="select-label-crop-status"
+              htmlFor="select-crop-status"
               sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
             >
-              Sowing status
+              Crop status
             </InputLabel>
-            <TextField
-              id="textfield-sowing-status"
-              variant="outlined"
-              fullWidth
-              // @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'SetStateAction<CropStatus>
+            <Select
+              labelId="select-label-crop-status"
+              id="select-crop-status"
+              label={"Crop status"}
+              value={sowingStatus}
+              // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
               onChange={(e) => setSowingStatus(e.target.value)}
-            />
-          </Box>
-          <Box
-            display={{ xs: "flex" }}
-            flexDirection={{ xs: "column" }}
-            gap={{ xs: 0.5 }}
-          >
+            >
+              {cropStatuses &&
+                cropStatuses.map((status, idx) => (
+                  <MenuItem
+                    key={idx}
+                    value={`${status}`}
+                  >{`${status}`}</MenuItem>
+                ))}
+            </Select>
+            <FormHelperText>Helper text</FormHelperText>
+          </FormControl>
+
+          <FormControl fullWidth>
             <InputLabel
-              id="textfield-label-seed"
-              htmlFor="textfield-seed"
+              id="select-label-crop-seed"
+              htmlFor="select-crop-seed"
               sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
             >
-              Seed
+              Crop seed
             </InputLabel>
-            <TextField
-              id="textfield-seed"
-              variant="outlined"
-              fullWidth
-              // @ts-expect-error Argument of type 'string' is not assignable to parameter of type 'SetStateAction<CropSeed>'
+            <Select
+              labelId="select-label-crop-seed"
+              id="select-crop-seed"
+              label={"Crop seed"}
+              value={seed}
+              // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
               onChange={(e) => setSeed(e.target.value)}
-            />
-          </Box>
+            >
+              {cropSeeds &&
+                cropSeeds.map((seed, idx) => (
+                  <MenuItem key={idx} value={`${seed}`}>{`${seed}`}</MenuItem>
+                ))}
+            </Select>
+            <FormHelperText>Helper text</FormHelperText>
+          </FormControl>
         </Box>
+
         <Button
           variant="contained"
           sx={{ background: "#F9DD30", color: "#103C23", fontWeight: 700 }}

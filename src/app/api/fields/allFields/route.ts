@@ -18,8 +18,11 @@ export type CropSeed =
   | "sunflowers"
   | "oats"
   | "cotton"
+  | "fallow"
+  | ""
   | null
-export type CropStatus = "fallow" | "planting" | "planted" | null
+
+export type CropStatus = "fallow" | "planting" | "planted" | "" | null
 
 export type Field = {
   field_id: string

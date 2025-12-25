@@ -10,6 +10,7 @@ const Section = ({ children, ...otherProps }: SectionProps) => {
     <Box
       role="section"
       py={{ xs: "20px", md: "40px" }}
+      pb={{ xs: "64px" }}
       px={{ xs: "20px", md: "40px" }}
       sx={{
         boxSizing: "border-box",

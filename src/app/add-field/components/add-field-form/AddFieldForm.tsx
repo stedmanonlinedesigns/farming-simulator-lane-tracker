@@ -12,7 +12,7 @@ import {
   MenuItem,
   FormHelperText,
 } from "@mui/material"
-import { Section } from "@/app/components"
+import { Section, Textfield } from "@/app/components"
 import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
 
 const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
@@ -56,26 +56,20 @@ const AddFieldForm = () => {
         boxSizing={"border-box"}
         sx={{ boxSizing: "border-box" }}
       >
-        <FormControl fullWidth>
-          <Box>
-            <InputLabel
-              id="textfield-label-add-field-number"
-              htmlFor="textfield-add-field-number"
-              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-            >
-              Field number
-            </InputLabel>
-            <OutlinedInput
-              id="textfield-add-field-number"
-              type="number"
-              fullWidth
-              label={"Field number"}
-              onChange={(e) => setNewFieldNumber(e.target.value)}
-            />
-            <FormHelperText>Helper text</FormHelperText>
-          </Box>
-        </FormControl>
-
+        <Textfield
+          id={"textfield-add-fieldnumber"}
+          type={"number"}
+          label={"Field number"}
+          value={newFieldNumber}
+          onChange={(e) => setNewFieldNumber(e.target.value)}
+          labelProps={{
+            id: "textfield-label-add-fieldnumber",
+            htmlFor: "textfield-add-fieldnumber",
+          }}
+          helperTextProps={{
+            children: "Enter a field that has not been saved before.",
+          }}
+        />
         <Box
           display={{ xs: "flex" }}
           justifyContent={{ xs: "space-between" }}

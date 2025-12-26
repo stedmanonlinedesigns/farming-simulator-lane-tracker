@@ -1,31 +1,56 @@
 import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
+import { Typography, Button } from "@mui/material"
 import { Section } from "../../components"
 
 type PageHeadingProps = {
   title: string
   subtitle?: string
+  action?: () => void
 }
 
-const PageHeading = ({ title, subtitle }: PageHeadingProps) => {
+const PageHeading = ({ title, subtitle, action }: PageHeadingProps) => {
   return (
     <Section sx={{}}>
-      <Box sx={{ width: "100%" }}>
-        <Typography
-          variant="h1"
-          fontSize={{ xs: "40px", sm: "48px", md: "56px", lg: "64px" }}
-          fontWeight={"bold"}
-          sx={{ width: "100%", color: "#F9DD30" }}
-        >
-          {title}
-        </Typography>
-        {subtitle && (
+      <Box
+        display={"flex"}
+        justifyContent={"space-between"}
+        alignItems={"start"}
+        sx={{ width: "100%" }}
+      >
+        <Box sx={{}}>
           <Typography
-            fontSize={{ xs: "24px", sm: "76px", md: "84px", lg: "96px" }}
-            sx={{ width: "100%", color: "white", textTransform: "capitalize" }}
+            variant="h1"
+            fontSize={{ xs: "40px", sm: "48px", md: "56px", lg: "64px" }}
+            fontWeight={"bold"}
+            sx={{ width: "100%", color: "#F9DD30" }}
           >
-            {subtitle}
+            {title}
           </Typography>
+          {subtitle && (
+            <Typography
+              fontSize={{ xs: "24px" }}
+              sx={{
+                width: "100%",
+                color: "white",
+                textTransform: "capitalize",
+              }}
+            >
+              {subtitle}
+            </Typography>
+          )}
+        </Box>
+        {action && (
+          <Box>
+            <Button
+              variant="contained"
+              disableElevation
+              size="small"
+              onClick={action}
+              sx={{ background: "#F9DD30", color: "#103C23", fontWeight: 700 }}
+            >
+              Edit field
+            </Button>
+          </Box>
         )}
       </Box>
     </Section>

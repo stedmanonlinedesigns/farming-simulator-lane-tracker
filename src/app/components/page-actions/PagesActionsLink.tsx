@@ -16,7 +16,7 @@ const PagesActionsLink = ({
   trailingIcon = false,
 }: PagesActionsLinkProps) => {
   return (
-    <Link href={href}>
+    <Link href={href} style={{ textDecoration: "none" }}>
       <Box
         display={{ xs: "flex" }}
         alignItems={{ xs: "center" }}

@@ -1,13 +1,16 @@
 import { create } from "zustand"
 
 export type View = "fields" | "trips"
-export type FieldModalStatus = "open" | "closed"
+export type EditFieldModalStatus = {
+  open: boolean
+  edit: "number" | "status" | "seed" | null
+}
 
 type AppState = {
   selectedView: View | null
   setSelectedView: (selectedView: View) => void
-  editFieldModalStatus: FieldModalStatus
-  toggleFieldModalStatus: (status: FieldModalStatus) => void
+  editFieldModalStatus: EditFieldModalStatus
+  toggleFieldModalStatus: (status: EditFieldModalStatus) => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -15,10 +18,8 @@ export const useAppStore = create<AppState>((set) => ({
   setSelectedView: (selectedView) => {
     set({ selectedView: selectedView })
   },
-  editFieldModalStatus: "closed",
+  editFieldModalStatus: { open: false, edit: null },
   toggleFieldModalStatus: (status) => {
-    status === "closed"
-      ? set({ editFieldModalStatus: "open" })
-      : set({ editFieldModalStatus: "closed" })
+    set({ editFieldModalStatus: { open: status.open, edit: status.edit } })
   },
 }))

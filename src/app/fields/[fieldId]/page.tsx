@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
-import { Main, PageHeading, PageActions } from "@/app/components"
+import { Main, PageActions } from "@/app/components"
 import { Heading } from "./components"
 
 const FieldPage = () => {

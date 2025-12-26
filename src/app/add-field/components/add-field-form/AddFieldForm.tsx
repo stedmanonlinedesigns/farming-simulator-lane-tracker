@@ -2,20 +2,37 @@
 import React from "react"
 import { useRouter } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
-import { Box, InputLabel, TextField, Button } from "@mui/material"
-import { Section } from "@/app/components"
+import { Box, Button, MenuItem } from "@mui/material"
+import { Section, Textfield, Picker } from "@/app/components"
+import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
+
+const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
+
+const cropSeeds: CropSeed[] = [
+  "barley",
+  "barley",
+  "canola",
+  "corn",
+  "cotton",
+  "fallow",
+  "grass",
+  "oats",
+  "poplar",
+  "soybeans",
+  "sorghum",
+  "sunflowers",
+  "sugarcane",
+  "wheat",
+]
 
 const AddFieldForm = () => {
   const router = useRouter()
   const { addField } = useFieldsStore()
-  const [newFieldNumber, setNewFieldNumber] = React.useState<string>('')
-  const [sowingStatus, setSowingStatus] = React.useState<string | null>(null)
-  const [seed, setSeed] = React.useState<string | null>(null)
-
-  // console.log(111, typeof parseInt(newFieldNumber))
+  const [newFieldNumber, setNewFieldNumber] = React.useState<string>("")
+  const [sowingStatus, setSowingStatus] = React.useState<CropStatus>("")
+  const [seed, setSeed] = React.useState<CropSeed>("")
 
   const handleAddField = () => {
-    // console.log(222, typeof parseInt(newFieldNumber), newFieldNumber)
     addField(parseInt(newFieldNumber), sowingStatus, seed)
     router.push("/fields")
   }
@@ -23,76 +40,72 @@ const AddFieldForm = () => {
   return (
     <Section>
       <Box
+        width={{ xs: "100%" }}
         display={{ xs: "flex" }}
         flexDirection={{ xs: "column" }}
         gap={{ xs: 2 }}
         boxSizing={"border-box"}
+        sx={{ boxSizing: "border-box" }}
       >
+        <Textfield
+          id={"textfield-add-fieldnumber"}
+          type={"number"}
+          label={"Field number"}
+          value={newFieldNumber}
+          onChange={(e) => setNewFieldNumber(e.target.value)}
+          labelProps={{
+            id: "textfield-label-add-fieldnumber",
+            htmlFor: "textfield-add-fieldnumber",
+          }}
+          helperTextProps={{
+            children: "Enter a field that has not been saved before.",
+          }}
+        />
+
         <Box
           display={{ xs: "flex" }}
-          flexDirection={{ xs: "column" }}
-          gap={{ xs: 0.5 }}
-        >
-          <InputLabel
-            id="textfield-label-add-field-number"
-            htmlFor="textfield-add-field-number"
-            sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-          >
-            Field number
-          </InputLabel>
-          <TextField
-            id="textfield-add-field-number"
-            type="number"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => setNewFieldNumber(e.target.value)}
-          />
-        </Box>
-        <Box
-          boxSizing={"border-box"}
-          display={{ xs: "flex" }}
+          justifyContent={{ xs: "space-between" }}
           gap={{ xs: 2 }}
-          width={{ xs: "100%" }}
         >
-          <Box
-            display={{ xs: "flex" }}
-            flexDirection={{ xs: "column" }}
-            gap={{ xs: 0.5 }}
+          <Picker
+            id="select-crop-status"
+            label={"Status"}
+            value={sowingStatus}
+            labelId="select-label-crop-status"
+            // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
+            onChange={(e) => setSowingStatus(e.target.value)}
+            formControlProps={{ fullWidth: true }}
+            labelProps={{
+              id: "select-label-crop-status",
+              htmlFor: "select-crop-status",
+            }}
+            helperTextProps={{ children: "This is helper text." }}
           >
-            <InputLabel
-              id="textfield-label-sowing-status"
-              htmlFor="textfield-sowing-status"
-              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-            >
-              Sowing status
-            </InputLabel>
-            <TextField
-              id="textfield-sowing-status"
-              variant="outlined"
-              fullWidth
-              onChange={(e) => setSowingStatus(e.target.value)}
-            />
-          </Box>
-          <Box
-            display={{ xs: "flex" }}
-            flexDirection={{ xs: "column" }}
-            gap={{ xs: 0.5 }}
+            {cropStatuses.map((status, idx) => (
+              <MenuItem key-={idx} value={`${status}`}>{`${status}`}</MenuItem>
+            ))}
+          </Picker>
+
+          <Picker
+            id="select-crop-seed"
+            label={"Seed"}
+            value={seed}
+            labelId="select-label-crop-seed"
+            // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
+            onChange={(e) => setSeed(e.target.value)}
+            formControlProps={{ fullWidth: true }}
+            labelProps={{
+              id: "select-label-crop-seed",
+              htmlFor: "select-crop-seed",
+            }}
+            helperTextProps={{ children: "This is helper text." }}
           >
-            <InputLabel
-              id="textfield-label-seed"
-              htmlFor="textfield-seed"
-              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-            >
-              Seed
-            </InputLabel>
-            <TextField
-              id="textfield-seed"
-              variant="outlined"
-              fullWidth
-              onChange={(e) => setSeed(e.target.value)}
-            />
-          </Box>
+            {cropSeeds.map((seed, idx) => (
+              <MenuItem key-={idx} value={`${seed}`}>{`${seed}`}</MenuItem>
+            ))}
+          </Picker>
         </Box>
+
         <Button
           variant="contained"
           sx={{ background: "#F9DD30", color: "#103C23", fontWeight: 700 }}

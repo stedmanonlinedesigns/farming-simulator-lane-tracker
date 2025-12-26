@@ -1,63 +1,29 @@
-"use client"
-import React from "react"
+// import React from "react"
 import Link from "next/link"
 import { Avatar, Typography, Box } from "@mui/material"
-import IconButton, { IconButtonProps } from "@mui/material/IconButton"
-import { styled } from "@mui/material/styles"
+import IconButton from "@mui/material/IconButton"
 import { Card } from "@/app/components"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
-import FavoriteIcon from "@mui/icons-material/Favorite"
-import ShareIcon from "@mui/icons-material/Share"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Field } from "@/app/api/fields/allFields/route"
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props
-  return <IconButton {...other} />
-})(({ theme }) => ({
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-  variants: [
-    {
-      props: ({ expand }) => !expand,
-      style: {
-        transform: "rotate(0deg)",
-      },
-    },
-    {
-      props: ({ expand }) => !!expand,
-      style: {
-        transform: "rotate(180deg)",
-      },
-    },
-  ],
-}))
 
 type FieldsDisplayCard = {
   field: Field
 }
 
 const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
-  const [expanded, setExpanded] = React.useState(false)
-  // console.log(333, field)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
   return (
-    <Link href={`/fields/${field.field_id}`} passHref>
+    <Link
+      href={`/fields/${field.field_id}`}
+      passHref
+      style={{ textDecoration: "none" }}
+    >
       <Card {...otherProps}>
         <Box
           py={{ xs: 2 }}
           px={{ xs: 2 }}
           display={{ xs: "flex" }}
+          justifyContent={{ xs: "center" }}
+          alignItems={{ xs: "center" }}
           gap={{ xs: 2 }}
         >
           <Box>
@@ -66,9 +32,9 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
               sx={{
                 bgcolor:
                   field.crop_details.status === "planting"
-                    ? "purple"
+                    ? "#ff3d00"
                     : field.crop_details.status === "planted"
-                    ? "red"
+                    ? "#103C23"
                     : "lightgray",
               }}
             >
@@ -93,30 +59,20 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
             <Typography
               fontSize={{ xs: "18px" }}
               sx={{ color: "white", textTransform: "capitalize" }}
-            >{`${field.crop_details.status} | ${field.crop_details.seed}`}</Typography>
+            >{`${
+              !field.crop_details.status
+                ? "Set status"
+                : field.crop_details.status
+            } | ${
+              !field.crop_details.seed ? "Set crop" : field.crop_details.seed
+            }`}</Typography>
           </Box>
-          <Box>
+          {/* <Box>
             <IconButton aria-label="field-actions">
               <MoreVertIcon sx={{ color: "white" }} />
             </IconButton>
-          </Box>
+          </Box> */}
         </Box>
-        {/* <Card.Actions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon sx={{ color: "white" }} />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon sx={{ color: "white" }} />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon sx={{ color: "white" }} />
-          </ExpandMore>
-        </Card.Actions> */}
       </Card>
     </Link>
   )

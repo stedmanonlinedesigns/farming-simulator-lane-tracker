@@ -109,6 +109,7 @@ const AddFieldForm = () => {
         <Button
           variant="contained"
           sx={{ background: "#F9DD30", color: "#103C23", fontWeight: 700 }}
+          disableElevation
           onClick={handleAddField}
         >
           Add field

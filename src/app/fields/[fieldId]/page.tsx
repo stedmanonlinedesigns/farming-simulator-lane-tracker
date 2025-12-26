@@ -1,7 +1,8 @@
 "use client"
 import { useParams } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
-import { Main, PageHeading, PageActions } from "@/app/components"
+import { Main, PageActions } from "@/app/components"
+import { Heading } from "./components"
 
 const FieldPage = () => {
   const params = useParams()
@@ -21,10 +22,7 @@ const FieldPage = () => {
   return (
     <Main>
       <PageActions />
-      <PageHeading
-        title={`Field ${field.field_number.toString()}`}
-        subtitle={`${field.crop_details.status} | ${field.crop_details.seed}`}
-      />
+      <Heading field={field} />
     </Main>
   )
 }

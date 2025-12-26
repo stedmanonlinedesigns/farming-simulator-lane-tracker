@@ -22,6 +22,8 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
           py={{ xs: 2 }}
           px={{ xs: 2 }}
           display={{ xs: "flex" }}
+          justifyContent={{ xs: "center" }}
+          alignItems={{ xs: "center" }}
           gap={{ xs: 2 }}
         >
           <Box>
@@ -65,11 +67,11 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
               !field.crop_details.seed ? "Set crop" : field.crop_details.seed
             }`}</Typography>
           </Box>
-          <Box>
+          {/* <Box>
             <IconButton aria-label="field-actions">
               <MoreVertIcon sx={{ color: "white" }} />
             </IconButton>
-          </Box>
+          </Box> */}
         </Box>
       </Card>
     </Link>

@@ -12,7 +12,11 @@ type FieldsDisplayCard = {
 
 const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
   return (
-    <Link href={`/fields/${field.field_id}`} passHref>
+    <Link
+      href={`/fields/${field.field_id}`}
+      passHref
+      style={{ textDecoration: "none" }}
+    >
       <Card {...otherProps}>
         <Box
           py={{ xs: 2 }}
@@ -26,9 +30,9 @@ const FieldsDisplayCard = ({ field, ...otherProps }: FieldsDisplayCard) => {
               sx={{
                 bgcolor:
                   field.crop_details.status === "planting"
-                    ? "purple"
+                    ? "#ff3d00"
                     : field.crop_details.status === "planted"
-                    ? "red"
+                    ? "#103C23"
                     : "lightgray",
               }}
             >

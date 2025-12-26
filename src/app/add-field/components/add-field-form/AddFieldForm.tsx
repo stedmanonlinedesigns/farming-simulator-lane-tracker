@@ -2,17 +2,8 @@
 import React from "react"
 import { useRouter } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Button,
-  OutlinedInput,
-  Select,
-  MenuItem,
-  FormHelperText,
-} from "@mui/material"
-import { Section, Textfield } from "@/app/components"
+import { Box, Button, MenuItem } from "@mui/material"
+import { Section, Textfield, Picker } from "@/app/components"
 import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
 
 const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
@@ -70,61 +61,49 @@ const AddFieldForm = () => {
             children: "Enter a field that has not been saved before.",
           }}
         />
+
         <Box
           display={{ xs: "flex" }}
           justifyContent={{ xs: "space-between" }}
           gap={{ xs: 2 }}
         >
-          <FormControl fullWidth>
-            <InputLabel
-              id="select-label-crop-status"
-              htmlFor="select-crop-status"
-              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-            >
-              Crop status
-            </InputLabel>
-            <Select
-              labelId="select-label-crop-status"
-              id="select-crop-status"
-              label={"Crop status"}
-              value={sowingStatus}
-              // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
-              onChange={(e) => setSowingStatus(e.target.value)}
-            >
-              {cropStatuses &&
-                cropStatuses.map((status, idx) => (
-                  <MenuItem
-                    key={idx}
-                    value={`${status}`}
-                  >{`${status}`}</MenuItem>
-                ))}
-            </Select>
-            <FormHelperText>Helper text</FormHelperText>
-          </FormControl>
+          <Picker
+            id="select-crop-status"
+            label={"Status"}
+            value={sowingStatus}
+            labelId="select-label-crop-status"
+            // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
+            onChange={(e) => setSowingStatus(e.target.value)}
+            formControlProps={{ fullWidth: true }}
+            labelProps={{
+              id: "select-label-crop-status",
+              htmlFor: "select-crop-status",
+            }}
+            helperTextProps={{ children: "This is helper text." }}
+          >
+            {cropStatuses.map((status, idx) => (
+              <MenuItem key-={idx} value={`${status}`}>{`${status}`}</MenuItem>
+            ))}
+          </Picker>
 
-          <FormControl fullWidth>
-            <InputLabel
-              id="select-label-crop-seed"
-              htmlFor="select-crop-seed"
-              sx={{ color: "#F9DD30", fontSize: "18px", fontWeight: "700" }}
-            >
-              Crop seed
-            </InputLabel>
-            <Select
-              labelId="select-label-crop-seed"
-              id="select-crop-seed"
-              label={"Crop seed"}
-              value={seed}
-              // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
-              onChange={(e) => setSeed(e.target.value)}
-            >
-              {cropSeeds &&
-                cropSeeds.map((seed, idx) => (
-                  <MenuItem key={idx} value={`${seed}`}>{`${seed}`}</MenuItem>
-                ))}
-            </Select>
-            <FormHelperText>Helper text</FormHelperText>
-          </FormControl>
+          <Picker
+            id="select-crop-seed"
+            label={"Seed"}
+            value={seed}
+            labelId="select-label-crop-seed"
+            // @ts-expect-error Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<CropStatus>
+            onChange={(e) => setSeed(e.target.value)}
+            formControlProps={{ fullWidth: true }}
+            labelProps={{
+              id: "select-label-crop-seed",
+              htmlFor: "select-crop-seed",
+            }}
+            helperTextProps={{ children: "This is helper text." }}
+          >
+            {cropSeeds.map((seed, idx) => (
+              <MenuItem key-={idx} value={`${seed}`}>{`${seed}`}</MenuItem>
+            ))}
+          </Picker>
         </Box>
 
         <Button

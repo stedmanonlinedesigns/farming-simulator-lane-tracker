@@ -6,3 +6,4 @@ export { default as Section } from "./Section"
 export { PageHeading } from "./page-heading"
 export { PageActions } from './page-actions'
 export { Textfield } from './text-field'
+export { Picker } from './picker'

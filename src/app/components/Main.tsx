@@ -8,7 +8,7 @@ const Main = ({ children }: MainProps) => {
   return (
     <Box
       role="main"
-      py={{ xs: '20px' }}
+      pb={{ xs: "0px" }}
       sx={{
         boxSizing: "border-box",
         width: "100%",

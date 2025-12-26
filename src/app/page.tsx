@@ -1,21 +1,21 @@
-"use client"
-import React from "react"
-import { useTripStore } from "@/store/tripStore"
-import { useFieldsStore } from "@/store/fieldsStore"
-import Button from "@mui/material/Button"
+// "use client"
+// import React from "react"
+// import { useTripStore } from "@/store/tripStore"
+// import { useFieldsStore } from "@/store/fieldsStore"
+// import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
-import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
-import FormControl from "@mui/material/FormControl"
-import Select, { SelectChangeEvent } from "@mui/material/Select"
-import TextField from "@mui/material/TextField"
+// import InputLabel from "@mui/material/InputLabel"
+// import MenuItem from "@mui/material/MenuItem"
+// import FormControl from "@mui/material/FormControl"
+// import Select, { SelectChangeEvent } from "@mui/material/Select"
+// import TextField from "@mui/material/TextField"
 import { Typography } from "@mui/material"
 import { Main, Section } from "./components"
 
 export default function Home() {
-  const { allTrips, fetchAllTrips, loading } = useTripStore()
-  const { allFields, fetchAllFields, addField, currentField, setCurrentField } =
-    useFieldsStore()
+  // const { allTrips, fetchAllTrips, loading } = useTripStore()
+  // const { allFields, fetchAllFields, addField, currentField, setCurrentField } =
+  //   useFieldsStore()
 
   // console.log(444, allTrips)
 
@@ -24,30 +24,30 @@ export default function Home() {
   //   fetchAllTrips()
   // }, [fetchAllFields, fetchAllTrips])
 
-  React.useEffect(() => {
-    fetchAllTrips()
-  }, [fetchAllTrips])
+  // React.useEffect(() => {
+  //   fetchAllTrips()
+  // }, [fetchAllTrips])
 
-  if (loading) {
-    return (
-      <div>
-        <p style={{ fontWeight: "semibold", color: "white" }}>Loading...</p>
-      </div>
-    )
-  }
+  // if (loading) {
+  //   return (
+  //     <div>
+  //       <p style={{ fontWeight: "semibold", color: "white" }}>Loading...</p>
+  //     </div>
+  //   )
+  // }
 
-  const handleAddField = () => {
-    addField(13, "planting", "oats")
-  }
+  // const handleAddField = () => {
+  //   addField(13, "planting", "oats")
+  // }
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const fieldsByFieldNumber = Object.fromEntries(
-      allFields.map((field) => [field.field_number, field])
-    )
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   const fieldsByFieldNumber = Object.fromEntries(
+  //     allFields.map((field) => [field.field_number, field])
+  //   )
 
-    const field = fieldsByFieldNumber[event.target.value]
-    setCurrentField(field)
-  }
+  //   const field = fieldsByFieldNumber[event.target.value]
+  //   setCurrentField(field)
+  // }
 
   return (
     <Main>

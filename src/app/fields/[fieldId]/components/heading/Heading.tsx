@@ -1,33 +1,24 @@
 "use client"
-import { useAppStore } from "@/store/appStore"
+import { useEditFieldModal } from "../modal/ModalContext"
 import { Box, Typography, IconButton } from "@mui/material"
 import { Section } from "@/app/components"
 import { EditFieldModal } from "../../components"
 import EditIcon from "@mui/icons-material/Edit"
 import type { Field } from "@/app/api/fields/allFields/route"
-import type { EditFieldModalUpdate } from "@/store/appStore"
+import type { EditFieldType } from "../modal/ModalContext"
 
 type PageHeadingProps = {
   field: Field
 }
 
 const PageHeading = ({ field }: PageHeadingProps) => {
-  const {
-    isEditFieldModalOpen,
-    toggleEditFieldModalOpen,
-    editFieldModalUpdateType,
-    toggleFieldModalType,
+  const { editFieldType, updateEditFieldType, openModal, closeModal } =
+    useEditFieldModal()
 
-    // editFieldModalStatus,
-    // toggleFieldModalStatus,
-  } = useAppStore()
-
-  const handleEditButtonClick = (updateType: EditFieldModalUpdate) => {
-    toggleFieldModalType(updateType)
-    toggleEditFieldModalOpen(isEditFieldModalOpen)
+  const handleEditButtonClick = (editFieldType: EditFieldType) => {
+    updateEditFieldType(editFieldType)
+    openModal()
   }
-
-  // console.log(222, editFieldModalUpdateType)
 
   return (
     <Section sx={{}}>
@@ -93,13 +84,7 @@ const PageHeading = ({ field }: PageHeadingProps) => {
           </Box>
         </Box>
       </Box>
-      <EditFieldModal
-        field={field}
-        // titleProps={{
-        //   children: `Field ${field.field_number} ${editFieldModalStatus.edit}`,
-        // }}
-        // onClose={() => toggleFieldModalStatus({ open: false, edit: null })}
-      />
+      <EditFieldModal field={field} />
     </Section>
   )
 }

@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
 import { ThemeProvider } from "@mui/material/styles"
+import { EditFieldModalProvider } from "./fields/[fieldId]/components/modal/ModalContext"
 import { Header } from "./components"
 import theme from "../theme"
-import "./globals.css";
+import "./globals.css"
 // import '@fontsource/roboto/300.css';
 // import '@fontsource/roboto/400.css';
 // import '@fontsource/roboto/500.css';
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <Header />
-            {children}
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <EditFieldModalProvider>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <Header />
+              {children}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </EditFieldModalProvider>
       </body>
     </html>
   )

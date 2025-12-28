@@ -1,15 +1,14 @@
 "use client"
-import { useAppStore } from "@/store/appStore"
+import { useEditFieldModal } from "./ModalContext"
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Typography,
 } from "@mui/material"
 import { Button } from "@/app/components"
 import EditFieldModalForm from "./EditFieldModalForm"
-import type { DialogProps, DialogTitleProps } from "@mui/material"
+import type { DialogProps } from "@mui/material"
 import type { Field } from "@/app/api/fields/allFields/route"
 
 type EditFieldModalProps = Omit<DialogProps, "open"> & {
@@ -18,34 +17,32 @@ type EditFieldModalProps = Omit<DialogProps, "open"> & {
 
 const EditFieldModal = ({ field }: EditFieldModalProps) => {
   const {
-    isEditFieldModalOpen,
-    toggleEditFieldModalOpen,
-    editFieldModalUpdateType,
-    // toggleFieldModalType,
+    open,
+    editFieldType,
+    updateEditFieldType,
+    inputValue,
+    resetInputValue,
+    closeModal,
+  } = useEditFieldModal()
 
-    // editFieldModalStatus,
-    // toggleFieldModalStatus,
-  } = useAppStore()
-
-  console.log(555, editFieldModalUpdateType)
+  console.log(555, inputValue)
+  const handleClose = () => {
+    closeModal()
+    setTimeout(() => {
+      resetInputValue()
+      updateEditFieldType("status")
+    }, 500)
+  }
 
   return (
-    <Dialog
-      open={isEditFieldModalOpen}
-      onClose={() => toggleEditFieldModalOpen(isEditFieldModalOpen)}
-    >
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{`Update Field ${field.field_number}`}</DialogTitle>
       <DialogContent dividers>
-        <EditFieldModalForm updateType={editFieldModalUpdateType} />
-        {/* <Typography>Here is some content</Typography> */}
+        <EditFieldModalForm />
       </DialogContent>
       <DialogActions>
         <Button variant="contained" size="large">{`Update`}</Button>
-        <Button
-          variant="outlined"
-          size="large"
-          onClick={() => toggleEditFieldModalOpen(isEditFieldModalOpen)}
-        >
+        <Button variant="outlined" size="large" onClick={handleClose}>
           Cancel
         </Button>
       </DialogActions>

@@ -1,17 +1,12 @@
 import { NextResponse } from "next/server"
-// import dayjs from "dayjs"
 import { getDatabase } from "@/lib/mongodb"
-import type {
-  Field,
-  CropStatus,
-  CropSeed,
-} from "@/app/api/fields/allFields/route"
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { field_id: string } }
+  { params }: { params: Promise<{ fieldId: string }> }
 ) {
   try {
+    const { fieldId } = await params
     const db = await getDatabase()
     const fieldsCollection = db.collection(
       `${process.env.MONGODB_DATABASE_COLLECTION_TWO}`
@@ -27,15 +22,15 @@ export async function PATCH(
     }
 
     if (status !== undefined) {
-      newFieldObj["crop_details"].status = status
+      newFieldObj["crop_details.status"] = status
     }
 
     if (seed !== undefined) {
-      newFieldObj["crop_details"].seed = seed
+      newFieldObj["crop_details.seed"] = seed
     }
 
     const result = await fieldsCollection.findOneAndUpdate(
-      { field_id: params.field_id },
+      { field_id: fieldId },
       { $set: newFieldObj },
       { returnDocument: "after" }
     )
@@ -43,8 +38,6 @@ export async function PATCH(
     if (!result) {
       return NextResponse.json({ error: "Field not found" }, { status: 404 })
     }
-
-    console.log(222, newFieldObj)
 
     return NextResponse.json({ fieldData: result })
   } catch (error) {

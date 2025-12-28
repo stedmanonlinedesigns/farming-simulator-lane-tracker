@@ -32,11 +32,7 @@ export const EditFieldModalProvider = ({
       value={{
         open: isOpen,
         editFieldType: editFieldType,
-        // updateEditFieldType: (type) => setEditFieldType(type),
-        updateEditFieldType: async (type) => {
-          console.log(888, "This happened.")
-          setEditFieldType(type)
-        },
+        updateEditFieldType: (type) => setEditFieldType(type),
         inputValue: inputValue,
         updateInputValue: (value) => {
           setInputValue(value)

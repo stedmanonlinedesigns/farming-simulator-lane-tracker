@@ -12,8 +12,7 @@ type PageHeadingProps = {
 }
 
 const PageHeading = ({ field }: PageHeadingProps) => {
-  const { editFieldType, updateEditFieldType, openModal, closeModal } =
-    useEditFieldModal()
+  const { updateEditFieldType, openModal } = useEditFieldModal()
 
   const handleEditButtonClick = (editFieldType: EditFieldType) => {
     updateEditFieldType(editFieldType)

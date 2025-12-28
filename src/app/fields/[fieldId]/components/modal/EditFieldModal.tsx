@@ -1,4 +1,5 @@
 "use client"
+import { useFieldsStore } from "@/store/fieldsStore"
 import { useEditFieldModal } from "./ModalContext"
 import {
   Dialog,
@@ -24,8 +25,8 @@ const EditFieldModal = ({ field }: EditFieldModalProps) => {
     resetInputValue,
     closeModal,
   } = useEditFieldModal()
+  const { updateField } = useFieldsStore()
 
-  console.log(555, inputValue)
   const handleClose = () => {
     closeModal()
     setTimeout(() => {
@@ -34,14 +35,44 @@ const EditFieldModal = ({ field }: EditFieldModalProps) => {
     }, 500)
   }
 
+  const handleSubmitForm = async () => {
+    const updates: {
+      field_number?: number
+      status?: string
+      seed?: string
+    } = {}
+
+    switch (editFieldType) {
+      case "field_number":
+        updates.field_number =
+          typeof inputValue === "number" ? inputValue : parseInt(inputValue)
+        break
+      case "status":
+        // @ts-expect-error Type 'string | number' is not assignable to type 'string | undefined'
+        updates.status = inputValue
+        break
+      case "seed":
+        // @ts-expect-error Type 'string | number' is not assignable to type 'string | undefined'
+        updates.seed = inputValue
+    }
+
+    await updateField(field.field_id, updates)
+
+    handleClose()
+  }
+
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{`Update Field ${field.field_number}`}</DialogTitle>
+      <DialogTitle>{`Field ${editFieldType}`}</DialogTitle>
       <DialogContent dividers>
         <EditFieldModalForm />
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" size="large">{`Update`}</Button>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={handleSubmitForm}
+        >{`Update ${editFieldType}`}</Button>
         <Button variant="outlined" size="large" onClick={handleClose}>
           Cancel
         </Button>

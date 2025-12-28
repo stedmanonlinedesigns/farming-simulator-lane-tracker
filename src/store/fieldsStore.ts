@@ -5,8 +5,6 @@ import type {
   CropSeed,
 } from "@/app/api/fields/allFields/route"
 
-// TODO: Add update field and delete field
-
 type FieldsState = {
   allFields: Field[]
   currentField: Field | null
@@ -17,6 +15,14 @@ type FieldsState = {
     fieldNumber: number,
     status: CropStatus,
     seed: CropSeed
+  ) => Promise<void>
+  updateField: (
+    fieldId: string,
+    updates: {
+      field_number?: number
+      status?: string
+      seed?: string
+    }
   ) => Promise<void>
   setCurrentField: (currentField: Field) => void
 }
@@ -59,6 +65,28 @@ export const useFieldsStore = create<FieldsState>((set) => ({
       set({ allFields: data.fieldsData })
     } catch (error) {
       console.error("Failed to add field to database.", error)
+    } finally {
+      set({ updating: false })
+    }
+  },
+  updateField: async (fieldId, updates) => {
+    set({ updating: true })
+    try {
+      const response = await fetch(`/api/fields/${fieldId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates),
+      })
+
+      const data = await response.json()
+
+      set((state) => ({
+        allFields: state.allFields.map((field) =>
+          field.field_id === fieldId ? data.fieldData : field
+        ),
+      }))
+    } catch (error) {
+      console.error("Error updating field:", error)
     } finally {
       set({ updating: false })
     }

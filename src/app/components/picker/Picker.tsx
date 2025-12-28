@@ -24,7 +24,7 @@ const Picker = ({
   children,
 }: PickerProps) => {
   return (
-    <FormControl {...formControlProps}>
+    <FormControl {...formControlProps} sx={{ width: '100%' }}>
       <InputLabel
         {...labelProps}
         sx={{

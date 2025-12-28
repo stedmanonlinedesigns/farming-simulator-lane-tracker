@@ -5,13 +5,29 @@ import { Section } from "@/app/components"
 import { EditFieldModal } from "../../components"
 import EditIcon from "@mui/icons-material/Edit"
 import type { Field } from "@/app/api/fields/allFields/route"
+import type { EditFieldModalUpdate } from "@/store/appStore"
 
 type PageHeadingProps = {
   field: Field
 }
 
 const PageHeading = ({ field }: PageHeadingProps) => {
-  const { editFieldModalStatus, toggleFieldModalStatus } = useAppStore()
+  const {
+    isEditFieldModalOpen,
+    toggleEditFieldModalOpen,
+    editFieldModalUpdateType,
+    toggleFieldModalType,
+
+    // editFieldModalStatus,
+    // toggleFieldModalStatus,
+  } = useAppStore()
+
+  const handleEditButtonClick = (updateType: EditFieldModalUpdate) => {
+    toggleFieldModalType(updateType)
+    toggleEditFieldModalOpen(isEditFieldModalOpen)
+  }
+
+  // console.log(222, editFieldModalUpdateType)
 
   return (
     <Section sx={{}}>
@@ -48,9 +64,7 @@ const PageHeading = ({ field }: PageHeadingProps) => {
               </Typography>
               <IconButton
                 size="small"
-                onClick={() =>
-                  toggleFieldModalStatus({ open: true, edit: "status" })
-                }
+                onClick={() => handleEditButtonClick("status")}
               >
                 <EditIcon
                   sx={{ width: "20px", height: "20px", color: "#F9DD30" }}
@@ -70,9 +84,7 @@ const PageHeading = ({ field }: PageHeadingProps) => {
             </Typography>
             <IconButton
               size="small"
-              onClick={() =>
-                toggleFieldModalStatus({ open: true, edit: "seed" })
-              }
+              onClick={() => handleEditButtonClick("seed")}
             >
               <EditIcon
                 sx={{ width: "20px", height: "20px", color: "#F9DD30" }}
@@ -82,10 +94,11 @@ const PageHeading = ({ field }: PageHeadingProps) => {
         </Box>
       </Box>
       <EditFieldModal
-        titleProps={{
-          children: `Field ${field.field_number} ${editFieldModalStatus.edit}`,
-        }}
-        onClose={() => toggleFieldModalStatus({ open: false, edit: null })}
+        field={field}
+        // titleProps={{
+        //   children: `Field ${field.field_number} ${editFieldModalStatus.edit}`,
+        // }}
+        // onClose={() => toggleFieldModalStatus({ open: false, edit: null })}
       />
     </Section>
   )

@@ -5,25 +5,7 @@ import { useFieldsStore } from "@/store/fieldsStore"
 import { Box, Button, MenuItem } from "@mui/material"
 import { Section, Textfield, Picker } from "@/app/components"
 import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
-
-const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
-
-const cropSeeds: CropSeed[] = [
-  "barley",
-  "barley",
-  "canola",
-  "corn",
-  "cotton",
-  "fallow",
-  "grass",
-  "oats",
-  "poplar",
-  "soybeans",
-  "sorghum",
-  "sunflowers",
-  "sugarcane",
-  "wheat",
-]
+import { cropStatuses, cropSeeds } from "@/constants"
 
 const AddFieldForm = () => {
   const router = useRouter()

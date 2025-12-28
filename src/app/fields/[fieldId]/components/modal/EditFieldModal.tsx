@@ -8,30 +8,43 @@ import {
   Typography,
 } from "@mui/material"
 import { Button } from "@/app/components"
+import EditFieldModalForm from "./EditFieldModalForm"
 import type { DialogProps, DialogTitleProps } from "@mui/material"
+import type { Field } from "@/app/api/fields/allFields/route"
 
 type EditFieldModalProps = Omit<DialogProps, "open"> & {
-  titleProps: DialogTitleProps
+  field: Field
 }
 
-const EditFieldModal = ({ onClose, titleProps }: EditFieldModalProps) => {
-  const { editFieldModalStatus, toggleFieldModalStatus } = useAppStore()
+const EditFieldModal = ({ field }: EditFieldModalProps) => {
+  const {
+    isEditFieldModalOpen,
+    toggleEditFieldModalOpen,
+    editFieldModalUpdateType,
+    // toggleFieldModalType,
+
+    // editFieldModalStatus,
+    // toggleFieldModalStatus,
+  } = useAppStore()
+
+  console.log(555, editFieldModalUpdateType)
 
   return (
-    <Dialog open={!editFieldModalStatus.open ? false : true} onClose={onClose}>
-      <DialogTitle {...titleProps} />
+    <Dialog
+      open={isEditFieldModalOpen}
+      onClose={() => toggleEditFieldModalOpen(isEditFieldModalOpen)}
+    >
+      <DialogTitle>{`Update Field ${field.field_number}`}</DialogTitle>
       <DialogContent dividers>
-        <Typography>Here is some content</Typography>
+        <EditFieldModalForm updateType={editFieldModalUpdateType} />
+        {/* <Typography>Here is some content</Typography> */}
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="contained"
-          size="large"
-        >{`Update ${editFieldModalStatus.edit}`}</Button>
+        <Button variant="contained" size="large">{`Update`}</Button>
         <Button
           variant="outlined"
           size="large"
-          onClick={() => toggleFieldModalStatus({ open: false, edit: null })}
+          onClick={() => toggleEditFieldModalOpen(isEditFieldModalOpen)}
         >
           Cancel
         </Button>

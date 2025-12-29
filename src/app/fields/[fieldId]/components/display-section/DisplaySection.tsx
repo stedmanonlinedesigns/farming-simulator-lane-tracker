@@ -11,13 +11,18 @@ type DisplaySectionProps = {
 const DisplaySection = ({ field }: DisplaySectionProps) => {
   const { allTrips, addTrip } = useTripStore()
 
-  const handleAddTrip = () => {
-    addTrip(43, `${field.field_id}`, { started: null, ended: null })
-  }
+  const filteredTrips = allTrips
+    .filter((trip) => trip.field_id === field.field_id)
+    .sort((a, b) => a.trip_number - b.trip_number)
 
-  const filteredTrips = allTrips.filter(
-    (trip) => trip.field_id === field.field_id
-  )
+  const nextTripNumber =
+    filteredTrips.length > 0
+      ? Math.max(...filteredTrips.map((trip) => trip.trip_number)) + 1
+      : 1
+
+  const handleAddTrip = () => {
+    addTrip(nextTripNumber, `${field.field_id}`, { started: null, ended: null })
+  }
 
   return (
     <Section>

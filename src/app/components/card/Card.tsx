@@ -9,7 +9,7 @@ type AppCardProps = {
 }
 
 const AppCard = ({ children }: AppCardProps) => {
-  return <Card sx={{ width: "100%", background: "#268D52" }}>{children}</Card>
+  return <Card sx={{  width: "100%", background: "#268D52" }}>{children}</Card>
 }
 
 AppCard.Header = CardHeader

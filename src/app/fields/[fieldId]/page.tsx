@@ -1,10 +1,12 @@
 "use client"
 import { useParams } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
+import { useFetchAll } from "@/hooks/useFetchAll"
 import { Main, PageActions } from "@/app/components"
-import { Heading } from "./components"
+import { Heading, DisplaySection } from "./components"
 
 const FieldPage = () => {
+  useFetchAll()
   const params = useParams()
   const { allFields } = useFieldsStore()
   const fieldId = params.fieldId as string
@@ -23,6 +25,7 @@ const FieldPage = () => {
     <Main>
       <PageActions />
       <Heading field={field} />
+      <DisplaySection field={field} />
     </Main>
   )
 }

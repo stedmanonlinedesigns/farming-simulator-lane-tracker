@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import type { Trip } from "@/app/api/trips/allTrips/route"
+import type { Trip } from "@/app/api/trips/route"
 
 type TripsState = {
   allTrips: Trip[]
@@ -15,7 +15,7 @@ export const useTripStore = create<TripsState>((set) => ({
 
   fetchAllTrips: async () => {
     try {
-      const response = await fetch("/api/trips/allTrips")
+      const response = await fetch("/api/trips")
       const data = await response.json()
 
       set({ allTrips: data.tripsData })

@@ -25,7 +25,7 @@ const FieldPage = () => {
     <Main>
       <PageActions />
       <Heading field={field} />
-      <DisplaySection />
+      <DisplaySection field={field} />
     </Main>
   )
 }

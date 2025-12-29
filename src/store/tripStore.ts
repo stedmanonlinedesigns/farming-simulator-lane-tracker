@@ -15,7 +15,7 @@ export const useTripStore = create<TripsState>((set) => ({
 
   fetchAllTrips: async () => {
     try {
-      const response = await fetch("api/trips/allTrips")
+      const response = await fetch("/api/trips/allTrips")
       const data = await response.json()
 
       set({ allTrips: data.tripsData })

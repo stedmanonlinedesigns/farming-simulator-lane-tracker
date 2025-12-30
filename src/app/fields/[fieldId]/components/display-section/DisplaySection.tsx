@@ -13,7 +13,7 @@ const DisplaySection = ({ field }: DisplaySectionProps) => {
 
   const filteredTrips = allTrips
     .filter((trip) => trip.field_id === field.field_id)
-    .sort((a, b) => a.trip_number - b.trip_number)
+    .sort((a, b) => b.trip_number - a.trip_number)
 
   const nextTripNumber =
     filteredTrips.length > 0

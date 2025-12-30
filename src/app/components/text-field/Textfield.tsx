@@ -26,7 +26,7 @@ const Textfield = ({
   ...otherInputProps
 }: TextfieldProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth sx={{ width: '100%' }}>
       <InputLabel
         {...labelProps}
         id={labelProps && labelProps.id}

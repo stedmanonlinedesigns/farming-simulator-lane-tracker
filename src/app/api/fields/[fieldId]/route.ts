@@ -9,7 +9,7 @@ export async function PATCH(
     const { fieldId } = await params
     const db = await getDatabase()
     const fieldsCollection = db.collection(
-      `${process.env.MONGODB_DATABASE_COLLECTION_TWO}`
+      `${process.env.MONGODB_DATABASE_COLLECTION_FIELDS}`
     )
 
     const body = await request.json()

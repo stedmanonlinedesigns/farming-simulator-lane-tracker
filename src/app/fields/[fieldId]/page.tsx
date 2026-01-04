@@ -1,32 +1,50 @@
-"use client"
-import { useParams } from "next/navigation"
-import { useFieldsStore } from "@/store/fieldsStore"
-import { useFetchAll } from "@/hooks/useFetchAll"
-import { Main, PageActions } from "@/app/components"
+import { getDatabase } from "@/lib/mongodb"
+import { PageActions } from "@/app/components"
 import { Heading, DisplaySection } from "./components"
+import type { Field } from "@/app/api/fields/route"
 
-const FieldPage = () => {
-  useFetchAll()
-  const params = useParams()
-  const { allFields } = useFieldsStore()
-  const fieldId = params.fieldId as string
+type FieldPageProps = {
+  params: {
+    fieldId: string
+  }
+}
 
-  const fieldsByFieldId = Object.fromEntries(
-    allFields.map((field) => [field.field_id, field])
-  )
+const FieldPage = async ({ params }: FieldPageProps) => {
+  const resolvedParams = await params
+  const db = await getDatabase()
+  const fieldData = await db
+    .collection(`${process.env.MONGODB_DATABASE_COLLECTION_FIELDS}`)
+    .findOne({ field_id: resolvedParams.fieldId })
 
-  const field = fieldsByFieldId[fieldId]
-
-  if (!field) {
+  if (!fieldData) {
     return <div>Field not found</div>
   }
 
+  const resolvedFieldData: Field = {
+    field_id: fieldData.field_id,
+    field_number: fieldData.field_number,
+    crop_details: fieldData.crop_details,
+    trip_tracking: fieldData.trip_tracking,
+    updated_at: fieldData.updated_at,
+  }
+
   return (
-    <Main>
+    <main
+      style={{
+        boxSizing: "border-box",
+        width: "100%",
+        background: "#1E6F41",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        alignItems: "center",
+      }}
+    >
       <PageActions />
-      <Heading field={field} />
-      <DisplaySection field={field} />
-    </Main>
+      <Heading field={resolvedFieldData} />
+      <DisplaySection field={resolvedFieldData} />
+    </main>
   )
 }
 

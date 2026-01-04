@@ -10,13 +10,14 @@ import {
 import { Button } from "@/app/components"
 import EditFieldModalForm from "./EditFieldModalForm"
 import type { DialogProps } from "@mui/material"
-import type { Field } from "@/app/api/fields/allFields/route"
+import type { Field } from "@/app/api/fields/route"
 
 type EditFieldModalProps = Omit<DialogProps, "open"> & {
   field: Field
+  onFieldUpdated: any
 }
 
-const EditFieldModal = ({ field }: EditFieldModalProps) => {
+const EditFieldModal = ({ field, onFieldUpdated }: EditFieldModalProps) => {
   const {
     open,
     editFieldType,
@@ -26,6 +27,7 @@ const EditFieldModal = ({ field }: EditFieldModalProps) => {
     closeModal,
   } = useEditFieldModal()
   const { updateField } = useFieldsStore()
+  const { status, seed } = onFieldUpdated
 
   const handleClose = () => {
     closeModal()
@@ -57,6 +59,9 @@ const EditFieldModal = ({ field }: EditFieldModalProps) => {
     }
 
     await updateField(field.field_id, updates)
+
+    editFieldType === "status" && status(updates.status)
+    editFieldType === "seed" && seed(updates.seed)
 
     handleClose()
   }

@@ -1,4 +1,4 @@
-import type { CropSeed, CropStatus } from "./app/api/fields/allFields/route"
+import type { CropSeed, CropStatus } from "./app/api/fields/route"
 
 export const cropStatuses: CropStatus[] = ["fallow", "planted", "planting"]
 

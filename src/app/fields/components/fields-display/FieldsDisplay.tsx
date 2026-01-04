@@ -1,15 +1,18 @@
-"use client"
-import { useFieldsStore } from "@/store/fieldsStore"
 import { CardDisplay } from "@/app/components"
 import FieldsDisplayCard from "./FieldsDisplayCard"
+import type { Field } from "@/app/api/fields/route"
 
-const FieldsDisplay = () => {
-  const { allFields } = useFieldsStore()
+type FieldsDisplayProps = {
+  fields: Field[]
+}
+
+const FieldsDisplay = ({ fields }: FieldsDisplayProps) => {
+  const sortedFields = fields.sort((a, b) => a.field_number - b.field_number)
 
   return (
     <CardDisplay>
-      {allFields &&
-        allFields.map((field) => (
+      {sortedFields &&
+        sortedFields.map((field) => (
           <FieldsDisplayCard key={field.field_id} field={field} />
         ))}
     </CardDisplay>

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useFieldsStore } from "@/store/fieldsStore"
 import { Box, Button, MenuItem } from "@mui/material"
 import { Section, Textfield, Picker } from "@/app/components"
-import type { CropStatus, CropSeed } from "@/app/api/fields/allFields/route"
+import type { CropStatus, CropSeed } from "@/app/api/fields/route"
 import { cropStatuses, cropSeeds } from "@/constants"
 
 const AddFieldForm = () => {

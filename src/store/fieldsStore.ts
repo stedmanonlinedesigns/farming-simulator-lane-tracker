@@ -3,7 +3,7 @@ import type {
   Field,
   CropStatus,
   CropSeed,
-} from "@/app/api/fields/allFields/route"
+} from "@/app/api/fields/route"
 
 type FieldsState = {
   allFields: Field[]
@@ -34,7 +34,7 @@ export const useFieldsStore = create<FieldsState>((set) => ({
   updating: false,
   fetchAllFields: async () => {
     try {
-      const response = await fetch("/api/fields/allFields")
+      const response = await fetch("/api/fields")
       const data = await response.json()
 
       set({ allFields: data.fieldsData })
@@ -51,13 +51,20 @@ export const useFieldsStore = create<FieldsState>((set) => ({
 
     try {
       set({ updating: true })
-      const response = await fetch("/api/fields/allFields", {
+      const response = await fetch("/api/fields", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           field_number: fieldNumber,
-          field_status: status,
-          field_seed: seed,
+          crop_details: {
+            status: status,
+            seed: seed
+          },
+          trip_tracking: {
+            total_trips: 0
+          }
+          // field_status: status,
+          // field_seed: seed,
         }),
       })
       const data = await response.json()

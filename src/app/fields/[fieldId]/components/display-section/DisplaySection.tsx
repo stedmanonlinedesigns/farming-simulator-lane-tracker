@@ -2,7 +2,7 @@
 import { useTripStore } from "@/store/tripStore"
 import { Box, Typography } from "@mui/material"
 import { Section, Card, Button } from "@/app/components"
-import type { Field } from "@/app/api/fields/allFields/route"
+import type { Field } from "@/app/api/fields/route"
 
 type DisplaySectionProps = {
   field: Field

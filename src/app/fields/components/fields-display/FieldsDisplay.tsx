@@ -4,6 +4,9 @@ import { FieldsNoFieldsDisplay } from "../fields-no-fields-display"
 import FieldsDisplayClient from "./FieldsDisplayClient"
 import type { Field } from "@/app/api/fields/route"
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const FieldsDisplay = async () => {
   const db = await getDatabase()
   const fieldsCollection = await db

@@ -5,7 +5,7 @@ export default function FieldsPage() {
   return (
     <Main>
       <PageActions />
-      <PageHeading title="Fields" subtitle="Select a field to view." />
+      <PageHeading title="Fields" subtitle="Select a field to view" />
       <FieldsDisplay />
     </Main>
   )

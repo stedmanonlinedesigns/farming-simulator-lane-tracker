@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import Box from "@mui/material/Box"
 import { Typography, Button } from "@mui/material"
 import { Section } from "../../components"
@@ -21,7 +21,7 @@ const PageHeading = ({ title, subtitle, action }: PageHeadingProps) => {
         <Box sx={{}}>
           <Typography
             variant="h1"
-            fontSize={{ xs: "40px", sm: "48px", md: "56px", lg: "64px" }}
+            fontSize={{ xs: "32px" }}
             fontWeight={"bold"}
             sx={{ width: "100%", color: "#F9DD30" }}
           >
@@ -29,7 +29,7 @@ const PageHeading = ({ title, subtitle, action }: PageHeadingProps) => {
           </Typography>
           {subtitle && (
             <Typography
-              fontSize={{ xs: "24px" }}
+              // fontSize={{ xs: "24px" }}
               sx={{
                 width: "100%",
                 color: "white",

@@ -1,5 +1,5 @@
 import { getDatabase } from "@/lib/mongodb"
-import { PageActions } from "@/app/components"
+import { Main, PageActions } from "@/app/components"
 import { Heading, DisplaySection } from "./components"
 import type { Field } from "@/app/api/fields/route"
 
@@ -29,22 +29,11 @@ const FieldPage = async ({ params }: FieldPageProps) => {
   }
 
   return (
-    <main
-      style={{
-        boxSizing: "border-box",
-        width: "100%",
-        background: "#1E6F41",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "start",
-        alignItems: "center",
-      }}
-    >
+    <Main>
       <PageActions />
       <Heading field={resolvedFieldData} />
       <DisplaySection field={resolvedFieldData} />
-    </main>
+    </Main>
   )
 }
 

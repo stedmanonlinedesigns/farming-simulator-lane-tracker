@@ -46,7 +46,7 @@ const HeadingCropDetails = ({ field }: HeadingCropDetailsProps) => {
           gap={"4px"}
         >
           <Typography
-            fontSize={{ xs: "20px" }}
+            // fontSize={{ xs: "20px" }}
             sx={{
               color: "white",
               textTransform: "capitalize",
@@ -61,7 +61,7 @@ const HeadingCropDetails = ({ field }: HeadingCropDetailsProps) => {
               display: "flex",
               alignItems: "center",
               gap: 1,
-              fontSize: "18px",
+              fontSize: "16px",
               color: "#F9DD30",
               textTransform: "capitalize",
             }}
@@ -79,7 +79,7 @@ const HeadingCropDetails = ({ field }: HeadingCropDetailsProps) => {
         gap={"4px"}
       >
         <Typography
-          fontSize={{ xs: "20px" }}
+          // fontSize={{ xs: "20px" }}
           sx={{
             color: "white",
             textTransform: "capitalize",
@@ -94,7 +94,7 @@ const HeadingCropDetails = ({ field }: HeadingCropDetailsProps) => {
             display: "flex",
             alignItems: "center",
             gap: 1,
-            fontSize: "18px",
+            fontSize: "16px",
             color: "#F9DD30",
             textTransform: "capitalize",
           }}

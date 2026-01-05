@@ -9,9 +9,9 @@ const Section = ({ children, ...otherProps }: SectionProps) => {
   return (
     <Box
       role="section"
-      pt={{ xs: "20px", md: "40px" }}
-      pb={{ xs: "32px" }}
-      px={{ xs: "20px", md: "40px" }}
+      pt={{ xs: "20px" }}
+      pb={{ xs: "20px" }}
+      px={{ xs: "20px" }}
       sx={{
         boxSizing: "border-box",
         width: "100%",

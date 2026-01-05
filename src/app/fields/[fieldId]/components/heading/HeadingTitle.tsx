@@ -1,4 +1,3 @@
-"use client"
 import { Box, Typography } from "@mui/material"
 
 type HeadingTitleProps = {
@@ -10,7 +9,8 @@ const HeadingTitle = ({ children }: HeadingTitleProps) => {
     <Box sx={{ width: "100%" }}>
       <Typography
         variant="h1"
-        fontSize={{ xs: "40px", sm: "48px", md: "56px", lg: "64px" }}
+        fontSize={"32px"}
+        lineHeight={"32px"}
         fontWeight={"bold"}
         sx={{ width: "100%", color: "#F9DD30" }}
       >

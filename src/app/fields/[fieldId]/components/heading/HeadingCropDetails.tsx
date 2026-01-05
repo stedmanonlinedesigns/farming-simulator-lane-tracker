@@ -11,6 +11,7 @@ type HeadingCropDetailsProps = {
   field: Field
 }
 
+// TODO: Could just pass the crop details object here
 const HeadingCropDetails = ({ field }: HeadingCropDetailsProps) => {
   const { updateEditFieldType, openModal } = useEditFieldModal()
   const [localCropStatus, setLocalCropStatus] = React.useState<

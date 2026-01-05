@@ -1,4 +1,5 @@
 "use client"
+import React from "react"
 import { useFieldsStore } from "@/store/fieldsStore"
 import { useEditFieldModal } from "./ModalContext"
 import {
@@ -11,6 +12,7 @@ import { Button } from "@/app/components"
 import EditFieldModalForm from "./EditFieldModalForm"
 import type { DialogProps } from "@mui/material"
 import type { Field } from "@/app/api/fields/route"
+// import dayjs from "dayjs"
 
 type EditFieldModalProps = Omit<DialogProps, "open"> & {
   field: Field
@@ -26,8 +28,12 @@ const EditFieldModal = ({ field, onFieldUpdated }: EditFieldModalProps) => {
     resetInputValue,
     closeModal,
   } = useEditFieldModal()
-  const { updateField } = useFieldsStore()
+  const { fetchAllFields, updateField } = useFieldsStore()
   const { status, seed } = onFieldUpdated
+
+  React.useEffect(() => {
+    fetchAllFields()
+  }, [fetchAllFields])
 
   const handleClose = () => {
     closeModal()
@@ -59,6 +65,17 @@ const EditFieldModal = ({ field, onFieldUpdated }: EditFieldModalProps) => {
     }
 
     await updateField(field.field_id, updates)
+
+    // const newField: Field = {
+    //   ...field,
+    //   crop_details: {
+    //     status: editFieldType === 'status' ? updates.status as CropStatus : field.crop_details.status,
+    //     seed: editFieldType === 'seed' ? updates.seed as CropSeed : field.crop_details.seed,
+    //   },
+    //   updated_at: dayjs().toDate()
+    // }
+
+    // setAllFieldsOnFieldUpdate(newField)
 
     editFieldType === "status" && status(updates.status)
     editFieldType === "seed" && seed(updates.seed)

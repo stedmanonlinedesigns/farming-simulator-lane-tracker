@@ -1,13 +1,10 @@
 import { create } from "zustand"
-import type {
-  Field,
-  CropStatus,
-  CropSeed,
-} from "@/app/api/fields/route"
+import type { Field, CropStatus, CropSeed } from "@/app/api/fields/route"
 
 type FieldsState = {
   allFields: Field[]
-  currentField: Field | null
+  setAllFields: (fields: Field[]) => void
+  setAllFieldsOnFieldUpdate: (updatedField: Field) => void
   loading: boolean
   updating: boolean
   fetchAllFields: () => Promise<void>
@@ -24,14 +21,20 @@ type FieldsState = {
       seed?: string
     }
   ) => Promise<void>
-  setCurrentField: (currentField: Field) => void
 }
 
 export const useFieldsStore = create<FieldsState>((set) => ({
   allFields: [],
-  currentField: null,
   loading: true,
   updating: false,
+  setAllFields: (fields) => set({ allFields: fields }),
+  setAllFieldsOnFieldUpdate: (updatedField) => {
+    set((state) => ({
+      allFields: state.allFields.map((field) =>
+        field.field_id === updatedField.field_id ? updatedField : field
+      ),
+    }))
+  },
   fetchAllFields: async () => {
     try {
       const response = await fetch("/api/fields")
@@ -58,13 +61,11 @@ export const useFieldsStore = create<FieldsState>((set) => ({
           field_number: fieldNumber,
           crop_details: {
             status: status,
-            seed: seed
+            seed: seed,
           },
           trip_tracking: {
-            total_trips: 0
-          }
-          // field_status: status,
-          // field_seed: seed,
+            total_trips: 0,
+          },
         }),
       })
       const data = await response.json()
@@ -72,7 +73,7 @@ export const useFieldsStore = create<FieldsState>((set) => ({
       set({ allFields: data.fieldsData })
 
       await fetch(`/api/fields?timestamp=${Date.now()}`, {
-        cache: 'no-store'
+        cache: "no-store",
       })
     } catch (error) {
       console.error("Failed to add field to database.", error)
@@ -101,8 +102,5 @@ export const useFieldsStore = create<FieldsState>((set) => ({
     } finally {
       set({ updating: false })
     }
-  },
-  setCurrentField: (currentField) => {
-    set({ currentField: currentField })
   },
 }))

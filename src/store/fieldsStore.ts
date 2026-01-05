@@ -70,6 +70,10 @@ export const useFieldsStore = create<FieldsState>((set) => ({
       const data = await response.json()
 
       set({ allFields: data.fieldsData })
+
+      await fetch(`/api/fields?timestamp=${Date.now()}`, {
+        cache: 'no-store'
+      })
     } catch (error) {
       console.error("Failed to add field to database.", error)
     } finally {

@@ -1,28 +1,16 @@
-// import { getDatabase } from "@/lib/mongodb"
 import { getAllFields } from "@/lib/data"
-import { Section } from "@/app/components"
 import { FieldsNoFieldsDisplay } from "../fields-no-fields-display"
 import FieldsDisplayClient from "./FieldsDisplayClient"
 import type { Field } from "@/app/api/fields/route"
 
-export const dynamic = 'force-dynamic'
-// export const revalidate = 0
+export const dynamic = "force-dynamic"
 
 const FieldsDisplay = async () => {
   const fieldsData = await getAllFields()
-  // const db = await getDatabase()
-  // const fieldsCollection = await db
-  //   .collection(`${process.env.MONGODB_DATABASE_COLLECTION_FIELDS}`)
-  //   .find({})
-  //   .toArray()
 
   // TODO: Might could get rid of this Section or use it in the component
   if (fieldsData.length === 0) {
-    return (
-      <Section>
-        <FieldsNoFieldsDisplay />
-      </Section>
-    )
+    return <FieldsNoFieldsDisplay />
   }
 
   const resolvedFieldsData: Field[] = fieldsData.map((field) => ({

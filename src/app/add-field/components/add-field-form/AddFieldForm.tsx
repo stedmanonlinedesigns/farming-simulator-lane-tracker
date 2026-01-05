@@ -15,8 +15,8 @@ const AddFieldForm = () => {
   const [seed, setSeed] = React.useState<CropSeed>("")
 
   const handleAddField = () => {
-    addField(parseInt(newFieldNumber), sowingStatus, seed)
-    router.push("/fields")
+    addField(parseInt(newFieldNumber), sowingStatus, seed).then(() => router.push("/fields"))
+    // router.push("/fields")
   }
 
   return (

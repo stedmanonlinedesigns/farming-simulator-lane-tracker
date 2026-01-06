@@ -13,6 +13,7 @@ const FieldsDisplay = async () => {
     return <FieldsNoFieldsDisplay />
   }
 
+  // TODO: Might not have to do this now that I am resoloving in data helper
   const resolvedFieldsData: Field[] = fieldsData.map((field) => ({
     field_id: field.field_id,
     field_number: field.field_number,

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import dayjs from "dayjs"
 import { v4 as uuid } from "uuid"
+import { getAllFields } from "@/lib/data"
 import { getDatabase } from "@/lib/mongodb"
 
 // TODO: Add update field and delete field
@@ -46,12 +47,8 @@ export type Field = {
 
 export async function GET() {
   try {
-    const db = await getDatabase()
-    const fieldsCollection = db.collection(
-      `${process.env.MONGODB_DATABASE_COLLECTION_FIELDS}`
-    )
-    const performanceStart = performance.now()
-    let fieldsData = await fieldsCollection.find().toArray()
+    const fieldsData = await getAllFields()
+    // const performanceStart = performance.now()
 
     // For developement
     // if (fieldsData.length === 0) {
@@ -71,13 +68,13 @@ export async function GET() {
     //   await fieldsCollection.insertOne(newField)
     // }
 
-    const performanceDuration = Math.round(performance.now() - performanceStart)
+    // const performanceDuration = Math.round(performance.now() - performanceStart)
 
-    console.info({
-      log: `Fetched ${fieldsData.length} fields.`,
-      timestamp: dayjs().format("ddd MM/DD/YYYY - HH:mm:ss:SSS"),
-      performance: `${performanceDuration.toString()}ms`,
-    })
+    // console.info({
+    //   log: `Fetched ${fieldsData.length} fields.`,
+    //   timestamp: dayjs().format("ddd MM/DD/YYYY - HH:mm:ss:SSS"),
+    //   performance: `${performanceDuration.toString()}ms`,
+    // })
 
     return NextResponse.json({ fieldsData })
   } catch (error) {

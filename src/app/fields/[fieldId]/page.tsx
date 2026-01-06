@@ -1,7 +1,6 @@
-import { getDatabase } from "@/lib/mongodb"
+import { getFieldById } from "@/lib/data"
 import { Main, PageActions } from "@/app/components"
-import { Heading, DisplaySection } from "./components"
-import type { Field } from "@/app/api/fields/route"
+import { Heading, Details } from "./components"
 
 type FieldPageProps = {
   params: {
@@ -11,28 +10,18 @@ type FieldPageProps = {
 
 const FieldPage = async ({ params }: FieldPageProps) => {
   const resolvedParams = await params
-  const db = await getDatabase()
-  const fieldData = await db
-    .collection(`${process.env.MONGODB_DATABASE_COLLECTION_FIELDS}`)
-    .findOne({ field_id: resolvedParams.fieldId })
+  const currentField = await getFieldById(resolvedParams.fieldId)
 
-  if (!fieldData) {
+  if (!currentField) {
     return <div>Field not found</div>
-  }
-
-  const resolvedFieldData: Field = {
-    field_id: fieldData.field_id,
-    field_number: fieldData.field_number,
-    crop_details: fieldData.crop_details,
-    trip_tracking: fieldData.trip_tracking,
-    updated_at: fieldData.updated_at,
   }
 
   return (
     <Main>
       <PageActions />
-      <Heading field={resolvedFieldData} />
-      <DisplaySection field={resolvedFieldData} />
+      <Heading field={currentField} />
+      <Details field={currentField} />
+      {/* <DisplaySection field={resolvedFieldData} /> */}
     </Main>
   )
 }

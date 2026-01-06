@@ -1,5 +1,20 @@
 import { NextResponse } from "next/server"
+import { getFieldById, deleteField } from "@/lib/data"
 import { getDatabase } from "@/lib/mongodb"
+
+export async function GET(
+  request: Request,
+  { params }: { params: { fieldId: string } }
+) {
+  try {
+    const { fieldId } = await params
+    const field = await getFieldById(fieldId)
+
+    return NextResponse.json(field)
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to get filed." }, { status: 500 })
+  }
+}
 
 export async function PATCH(
   request: Request,
@@ -44,6 +59,23 @@ export async function PATCH(
     console.error("Failed to updated field.", error)
     return NextResponse.json(
       { error: "Failed to update field." },
+      { status: 500 }
+    )
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: { fieldId: string } }
+) {
+  try {
+    const { fieldId } = await params
+    const deletedField = await deleteField(fieldId)
+
+    return NextResponse.json(deletedField)
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Not able to delete field." },
       { status: 500 }
     )
   }

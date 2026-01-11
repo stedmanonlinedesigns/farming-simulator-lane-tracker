@@ -16,6 +16,7 @@ export async function GET(
   }
 }
 
+// TODO: Get rid of getDatabase() from here
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ fieldId: string }> }

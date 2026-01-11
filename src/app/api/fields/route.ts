@@ -34,15 +34,15 @@ export type Field = {
   }
   trip_tracking: {
     total_trips: number
-    // total_tramlines: number
-    // trips_since_tramline: number,
-    // tramline_interval: number,
-    // last_tramline_trip: number | null
+    total_tramlines: number
+    trips_since_tramline: number
+    tramline_interval: number
+    last_tramline_trip: number | null
   }
-  //   stats: {
-  //     total_time_minutes: number,
-  //     average_trip_time_minutes: number | null
-  //   },
+  stats: {
+    total_time_minutes: number
+    average_trip_time_minutes: number | null
+  }
   updated_at: Date
 }
 

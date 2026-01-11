@@ -1,7 +1,7 @@
 "use client"
 import { useCurrentFieldStore } from "@/store/currentFieldStore"
 import { Box } from "@mui/material"
-import { red } from '@mui/material/colors'
+import { red } from "@mui/material/colors"
 import DetailsMetricsItem from "./DetailsMetricsItem"
 
 const DetailsMetrics = () => {

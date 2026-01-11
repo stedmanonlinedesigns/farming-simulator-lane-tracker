@@ -30,7 +30,7 @@ const Details = ({ field }: DetailsProps) => {
     <Section sx={{ gap: "20px" }}>
       <DetailsTripNumber />
       <DetailsMetrics />
-      <DetailsActions />
+      <DetailsActions fieldId={field.field_id} />
     </Section>
   )
 }

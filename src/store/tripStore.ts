@@ -2,10 +2,13 @@ import { create } from "zustand"
 import type { Trip } from "@/app/api/trips/route"
 
 type TripsState = {
-  allTrips: Trip[]
   loading: boolean
   updating: boolean
+  allTrips: Trip[]
   fetchAllTrips: () => Promise<void>
+  tripsByFieldId: Trip[]
+  fetchTripsByFieldId: () => void
+  addTripByFieldId: () => void
   addTrip: (
     trip_number: Trip["trip_number"],
     field_id: Trip["field_id"],
@@ -14,9 +17,9 @@ type TripsState = {
 }
 
 export const useTripStore = create<TripsState>((set) => ({
-  allTrips: [],
   loading: true,
   updating: false,
+  allTrips: [],
   fetchAllTrips: async () => {
     try {
       const response = await fetch("/api/trips")
@@ -29,6 +32,12 @@ export const useTripStore = create<TripsState>((set) => ({
       set({ loading: false })
     }
   },
+  tripsByFieldId: [],
+  fetchTripsByFieldId: () => {
+    set({ tripsByFieldId: [] })
+  },
+  addTripByFieldId: () => {},
+  // TODO: This should be getting replaced with above
   addTrip: async (trip_number, field_id, trip_time) => {
     set({ updating: true })
     try {

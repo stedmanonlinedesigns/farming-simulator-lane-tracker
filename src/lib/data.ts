@@ -25,7 +25,17 @@ export async function getAllFields(): Promise<Field[]> {
       status: field.crop_details.status,
       seed: field.crop_details.seed,
     },
-    trip_tracking: field.trip_tracking,
+    trip_tracking: {
+      total_trips: field.trip_tracking.total_trips,
+      total_tramlines: field.trip_tracking.total_tramlines,
+      trips_since_tramline: field.trip_tracking.trips_since_tramline,
+      tramline_interval: field.trip_tracking.tramline_interval,
+      last_tramline_trip: field.trip_tracking.last_tramline_trip,
+    },
+    stats: {
+      total_time_minutes: field.stats.total_time_minutes,
+      average_trip_time_minutes: field.stats.average_trip_time_minutes,
+    },
     updated_at: field.updated_at,
   }))
 
@@ -60,6 +70,14 @@ export async function getFieldById(fieldId: string): Promise<Field | null> {
     },
     trip_tracking: {
       total_trips: selectedField.trip_tracking.total_trips,
+      total_tramlines: selectedField.trip_tracking.total_tramlines,
+      trips_since_tramline: selectedField.trips_since_tramline,
+      tramline_interval: selectedField.tramline_interval,
+      last_tramline_trip: selectedField.last_tramline_trip,
+    },
+    stats: {
+      total_time_minutes: selectedField.stats.total_time_minutes,
+      average_trip_time_minutes: selectedField.stats.average_trip_time_minutes,
     },
     updated_at: selectedField.updated_at,
   }
@@ -75,7 +93,7 @@ export async function addField(request: Request): Promise<void> {
   const body = await request.json()
   // TODO: Not sure I need this next step
   const newBody = await body
-  const { field_number, crop_details, trip_tracking } = newBody
+  const { field_number, crop_details, trip_tracking, stats } = newBody
 
   const newField: Field = {
     field_id: uuid(),
@@ -86,6 +104,14 @@ export async function addField(request: Request): Promise<void> {
     },
     trip_tracking: {
       total_trips: trip_tracking.total_trips,
+      total_tramlines: trip_tracking.total_tramlines,
+      trips_since_tramline: trip_tracking.trips_since_tramline,
+      tramline_interval: trip_tracking.tramline_interval,
+      last_tramline_trip: trip_tracking.last_tramline_trip,
+    },
+    stats: {
+      total_time_minutes: stats.total_time_minutes,
+      average_trip_time_minutes: stats.average_trip_time_minutes,
     },
     updated_at: dayjs().toDate(),
   }
